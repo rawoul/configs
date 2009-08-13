@@ -1,0 +1,136 @@
+# ------------------------------------------------------------------------------
+# SCREEN SETTINGS
+# ------------------------------------------------------------------------------
+
+startup_message off
+vbell off
+vbell_msg "[[ ding ]]"
+
+autodetach on
+defbce on
+defflow off
+deflogin on
+defutf8 on
+altscreen on
+defscrollback 2048
+silencewait 15
+msgminwait 5
+escape ^Xx
+#caption always "%{= kG}[%{B} %H %{G}]%{d}%=%-w%{r}(%{-}%n* %t%{r})%{-}%+w%-=%>%{G}[%{B} %0c %{G}]%<"
+
+# ------------------------------------------------------------------------------
+# SCREEN KEYBINDINGS
+# ------------------------------------------------------------------------------
+
+# Remove some stupid / dangerous key bindings
+bind k
+bind ^k
+bind .
+bind ^\
+bind \\
+bind ^h
+bind h
+
+# Make them better
+bind \\ quit
+bind K kill
+bind I login on
+bind O login off
+bind } history
+
+# ------------------------------------------------------------------------------
+# TERMINAL SETTINGS
+# ------------------------------------------------------------------------------
+
+# turn sending of screen messages to hardstatus off
+hardstatus off
+# use this for the hard status string
+hardstatus string "%h%? users: %u%?"
+
+# An alternative hardstatus to display a bar at the bottom listing the
+# windownames and highlighting the current windowname in blue. (This is only
+# enabled if there is no hardstatus setting for your terminal)
+#hardstatus lastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+
+# set these terminals up to be 'optimal' instead of vt100
+termcapinfo xterm*|rxvt*|kterm*|Eterm* OP
+
+# set the hardstatus prop on gui terms to set the titlebar/icon title
+termcapinfo xterm*|rxvt*|kterm*|Eterm* hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007
+
+# use background color for delete operations
+termcapinfo xterm*|rxvt*|kterm|Eterm be
+
+# do not use alternative window buffer, it breaks scrollback
+termcapinfo xterm*|rxvt*|kterm|Eterm ti@:te=\E[2J
+
+# ------------------------------------------------------------------------------
+# STARTUP SCREENS
+# ------------------------------------------------------------------------------
+
+# Example of automatically running some programs in windows on screen startup.
+#
+#   The following will open top in the first window, an ssh session to monkey
+#   in the next window, and then open mutt and tail in windows 8 and 9
+#   respectively.
+#
+# screen top
+# screen -t monkey ssh monkey
+# screen -t mail 8 mutt
+# screen -t daemon 9 tail -f /var/log/daemon.log
+#screen -t 'irc' 1 irssi
+#screen -t 'zsh' 2 zsh
+
+# -------------------------------------------------------------- #
+# MESSAGES
+# -------------------------------------------------------------- #`
+# "STRING ESCAPES":
+#  %%      percent sign (the escape character itself)
+#  %a      either 'am' or 'pm' - according to the current time
+#  %A      either 'AM' or 'PM' - according to the current time
+#  %c      current time HH:MM in 24h format
+#  %C      current time HH:MM in 12h format
+#  %d      DAY NUmber - number of current day
+#  %D      Day's name - the weekday name of the current day
+#  %f      flags of the window
+#  %F      sets %? to true if the window has the focus
+#  %h      hardstatus of the window
+#  %H      hostname of the system
+#  %l      current load of the system
+#  %m      month number
+#  %M      month name
+#  %n      window number
+#  %s      seconds
+#  %t      window title
+#  %u      all other users on this window
+#  %w      all window numbers and names.
+#  %-w     all window numbers up to the current window
+#  %+w     all window numbers after the current window
+#  %W      all window numbers and names except the current one
+#  %y      last two digits of the year number
+#  %Y      full year number
+activity "activity in %n (%t)"
+defhstatus "screen: ^En (^Et)"
+
+# -------------------------------------------------------------- #
+# some notes on COLOR before explaining its use in
+# the commands caption, hardstatus, and sorendition.
+#
+# COLOR:  colors codes are combinations of
+# [attribute modifier] [color description]
+# the manual talks of "attribute/color modifiers".
+# see the manual, section "STRING ESCAPES".
+#
+# Color table:
+# 0 Black             .    leave color unchanged
+# 1 Red               b    blue
+# 2 Green             c    cyan
+# 3 Brown / yellow    d    default color
+# 4 Blue              g    green           b    bold
+# 5 Purple            k    blacK           B    blinking
+# 6 Cyan              m    magenta         d    dim
+# 7 White             r    red             r    reverse
+# 8 unused/illegal    w    white           s    standout
+# 9 transparent       y    yellow          u    underline
+
+# dinfo

@@ -1,0 +1,26 @@
+#!/bin/sh -ex
+
+while [ -n "$1" ]; do
+  case "$1" in
+    -m) mod=$2; shift;;
+     *) break;;
+  esac
+  shift
+done
+
+demo="$1"
+
+if [ -z "$demo" ]; then
+  echo "no demo specified"
+  exit 1
+elif [ ! -f "$demo" ]; then
+  echo "error reading demo"
+  exit 1
+fi
+
+[ -z "$mod" ] && mod=baseq3
+dir="${HOME}/.q3a/$mod/demos"
+[ ! -e "$dir" ] && mkdir -p "$dir"
+cp "$demo" "$dir/tmp.dm_68"
+
+quake3 +set fs_game $mod +exec rawoul/hq.cfg +demo tmp

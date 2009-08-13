@@ -1,0 +1,105 @@
+*FontList:			codingfonttobi1
+*Font:				codingfonttobi1
+*PlanFont:			codingfonttobi1
+*Dialog.font:			snap
+*Button.font:			snap
+
+emacs.geometry:			125x60
+emacs.popup.Font:		7x13
+emacs.popup.Foreground:		white
+emacs.popup.Background:		#101010
+emacs.menubar.Font:		7x13
+emacs.menubar.Foreground:	white
+emacs.menubar.Background:	#101010
+emacs.dialog.Foreground:	white
+emacs.dialog.Background:	#101010
+emacs.foreground:		white
+emacs.background:		#101010
+emacs.cursorColor:		#00FF00
+emacs.pointerColor:		white
+emacs.font: 			codingfonttobi1
+
+Xft.dpi:			96
+!Xft.hinting:			1
+!Xft.hintstyle:			hintmedium
+
+XTerm*font:			codingfonttobi1
+XTerm*saveLines:		5000
+XTerm*geometry:			110x60
+XTerm*jumpScroll:		true
+XTerm*scrollBar:		false
+XTerm*scrollTtyOutput:		false
+XTerm*scrollKey:		true
+XTerm*cutNewline:		false
+XTerm*visualBell:		false
+XTerm*internalBorder:		2
+XTerm*cursorColor:		gray
+XTerm*cursorColor2:		#000033
+XTerm*background:		black
+XTerm*foreground:		#e0e0e0
+
+Aterm.shading:			35
+Aterm.borderWidth:		1
+Aterm.transparent:		true
+Aterm.pointerColor:		white
+
+!URxvt.font:			xft:monospace:size=8
+!URxvt.boldFont:			xft:monospace:size=8:bold
+!URxvt.italicFont:		xft:monospace:size=8:italic
+!URxvt.boldItalicFont:		xft:monospace:size=8:bold:italic
+URxvt.font:			codingfonttobi1
+URxvt.boldFont:
+URxvt.italicFont:
+URxvt.boldItalicFont:
+URxvt.skipBuiltinGlyphs:	true
+URxvt.saveLines:		5000
+URxvt.geometry:			80x60
+URxvt.scrollBar:		false
+URxvt.scrollTtyOutput:		false
+URxvt.scrollTtyKeypress:	true
+URxvt.scrollWithBuffer:		true
+URxvt.jumpScroll:		true
+!URXvt.secondaryScreen:		false
+URxvt.urgentOnBell:		true
+URxvt.visualBell:		false
+URxvt.internalBorder:		2
+URxvt.tintColor:		#619ce6
+URxvt.transparent:		true
+URxvt.shading:			30
+URxvt.pointerColor:		white
+URxvt.cursorColor:		gray80
+URxvt.cursorColor2:		gray10
+!URxvt.depth:			32
+URxvt.background:		gray10
+URxvt.foreground:		gray85
+URxvt.colorBD:			#e8f1ff
+URxvt.colorUL:			#f0f1e8
+
+!black
+*color0:			black
+*color8:			gray40
+!red
+*color1:			#ff7070
+*color9:			#ff6565
+!green
+*color2:			#9eee81
+*color10:			#80e75a
+!yellow
+*color3:			#ffe790
+*color11:			#ffdd62
+!blue
+*color4:			#305a97
+*color12:			#4475b4
+!magenta
+*color5:			#ef9ece
+*color13:			#ff7eca
+!cyan
+*color6:			#79b6e2
+*color14:			#89cdf2
+!white
+*color7:			gray80
+*color15:			white
+
+XCalc.ti.Command.background:	gray50
+XCalc.ti.Command.foreground:	white
+XCalc.ti.background:		gray25

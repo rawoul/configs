@@ -1,0 +1,83 @@
+# User description ########################################################
+set realname = "Arnaud Vrac"
+set from = rawoul@zogzog.org
+set hostname = zogzog.org
+
+# Folder and Mailbox ######################################################
+#set folder = ~/.maildir
+#set spoolfile = =received
+set folder = imaps://imap.zogzog.org/INBOX
+set spoolfile = imaps://imap.zogzog.org/INBOX
+set certificate_file=~/.certificates
+set imap_user = rawoul
+set record = =Sent
+set postponed = =Drafts
+set mbox_type = Maildir
+set mail_check = 60
+set header_cache=~/.hcache
+set imap_check_subscribed
+
+# General mutt options ####################################################
+unset prompt_after
+unset move
+set date_format = "%b %d %H:%M"
+set delete
+set beep_new
+set charset = iso-8859-1
+
+# Menu index ##############################################################
+set pager_index_lines = 8
+set pager_stop
+set strict_threads
+set sort = threads
+set sort_aux = date
+set index_format = "%4C %4c %Z %d %-15.15L  %s"
+
+# Composing ###############################################################
+set reply_to
+set fast_reply
+set include
+set editor = vi
+set attribution = "On %d, %n <%a> wrote:\n"
+
+# Forwarding ##############################################################
+set forward_format = "Fw: %s"
+
+# Headers #################################################################
+set edit_headers
+ignore *
+unignore From: To Cc Subject Date Reply-To X-Mailer User-Agent
+hdr_order Date From To Cc Subject
+
+# Sending #################################################################
+set send_charset = iso-8859-1
+set sendmail="/usr/sbin/ssmtp"
+
+# Attached documents ######################################################
+auto_view application/x-gunzip
+auto_view application/x-gzip
+auto_view application/x-tar
+auto_view application/x-gtar
+auto_view text/html
+
+# Colors ##################################################################
+color indicator   black           cyan
+color error       brightred       default
+color status      brightwhite     blue
+color hdrdefault  blue            default
+color header      brightyellow    default "^date:"
+color header      brightgreen     default "^from:"
+color header      brightcyan      default "^to:"
+color header      brightblue      default "^cc:"
+color header      brightwhite     default "^subject:"
+color quoted      green           default
+color signature   blue            default
+color body        cyan            default "(ftp|http|gopher|wais|file)://[^ ()<>,]+"
+color body        cyan            default "[-a-z_0-9.]+@[-a-z_0-9.]+"
+color underline   brightgreen     default
+color search      brightblack     yellow
+color attachment  blue            default
+color tree        green           default
+color markers     brightblack     default
+
+# EOF

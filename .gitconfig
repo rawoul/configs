@@ -1,0 +1,16 @@
+[user]
+	email = rawoul@gmail.com
+	name = Arnaud Vrac
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = auto
+	interative = auto
+[core]
+	editor = vim
+[log]
+	date = local
+[alias]
+	st = status
+	ci = commit
