@@ -40,7 +40,7 @@ export EDITOR="vim"
 export CVSEDITOR="vim"
 export VISUAL="gvim"
 
-export BROWSER="firefox"
+export BROWSER="google-chrome"
 
 ################################################################################
 ## zsh options
