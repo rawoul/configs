@@ -114,8 +114,6 @@ filetype plugin indent on
 au FileType text,tex,mail setlocal textwidth=80
 " execute script when using :make
 au FileType sh setlocal makeprg=./$*
-" haXe
-au BufNewFile,BufRead *.hx setf haxe
 " fbxbus
 au BufNewFile,BufRead *.fbxbus setf fbxbus
 " lua template
