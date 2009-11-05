@@ -1,61 +1,57 @@
----------------------------------------------------------------------------
--- Drop down (quake-like) terminal for the awesome window manager
---   * Updated on: Jul 17, 23:00:18 CEST 2009
----------------------------------------------------------------------------
--- Original by: Lucas de Vries <lucas_glacicle_com>
---   * http://awesome.naquadah.org/wiki/Drop-down_terminal
--- 
--- Modified by: Adrian C. <anrxc_sysphere_org>
---   * Original code turned into a module
---   * Startup notification disabled
---   * Slides in from the bottom of the screen by default
--- 
+----------------------------------------------------------------
+-- Drop-down applications manager for the awesome window manager
+----------------------------------------------------------------
+-- Adrian C. <anrxc.sysphere.org>
 -- Licensed under the WTFPL version 2
 --   * http://sam.zoy.org/wtfpl/COPYING
----------------------------------------------------------------------------
+----------------------------------------------------------------
 -- To use this module add:
---     require("teardrop")
--- to the top of your rc.lua and call:
---     teardrop.toggle(prog, edge, height, screen)
--- from a keybinding. 
--- 
--- Parameters: 
---   prog     - Program to run, for example: "urxvt"
---   edge     - Screen edge (optional), 1 to drop down from the top of the
---              screen, by default it slides in from the bottom
---   height   - Height (optional), in absolute pixels when > 1 or a height
---              percentage when < 1, 0.25 (25% of the screen) by default
---   screen   - Screen (optional)
----------------------------------------------------------------------------
+--   require("teardrop")
+-- to the top of your rc.lua, and call it from a keybinding:
+--   teardrop(prog, vert, horiz, width, height, sticky, screen)
+--
+-- Parameters:
+--   prog   - Program to run; "urxvt", "gmrun", "thunderbird"
+--   vert   - Vertical; "bottom", "center" or "top" (default)
+--   horiz  - Horizontal; "left", "right" or "center" (default)
+--   width  - Width in absolute pixels, or width percentage
+--            when < 1 (0.9999 (99.9% of the screen) by default)
+--   height - Height in absolute pixels, or height percentage
+--            when < 1 (0.25 (25% of the screen) by default)
+--   sticky - Visible on all tags, false by default
+--   screen - Screen (optional), mouse.screen by default
+----------------------------------------------------------------
 
 -- Grab environment
-local awful = require("awful")
 local pairs = pairs
-local capi = { screen = screen, client = client, mouse = mouse }
+local awful = require("awful")
+local setmetatable = setmetatable
+local capi = {
+    mouse = mouse,
+    client = client,
+    screen = screen
+}
 
-
--- Teardrop: Drop down (quake-like) terminal for the awesome window manager
+-- Teardrop: Drop-down applications manager for the awesome window manager
 module("teardrop")
-
 
 local dropdown = {}
 
--- Drop down (quake-like) terminal toggle
--- 
--- Create a new window for the drop-down terminal when it doesn't
--- exist, or toggle between hidden and visible states if one does
--- exist.
-function toggle(prog, edge, height, screen)
-    if screen == nil then screen = capi.mouse.screen end
-    if height == nil then height = 0.25 end
-    if edge   == nil then edge   = 0 end
+-- Create a new window for the drop-down application when it doesn't
+-- exist, or toggle between hidden and visible states when it does
+function toggle(prog, vert, horiz, width, height, sticky, screen)
+    local vert   = vert   or "top"
+    local horiz  = horiz  or "center"
+    local width  = width  or 0.9999
+    local height = height or 0.25
+    local sticky = sticky or false
+    local screen = screen or capi.mouse.screen
 
     if not dropdown[prog] then
-        -- Create table
         dropdown[prog] = {}
 
-        -- Add unmanage hook for dropdown programs
-        awful.hooks.unmanage.register(function (c)
+        -- Add unmanage signal for teardrop programs
+        capi.client.add_signal("unmanage", function (c)
             for scr, cl in pairs(dropdown[prog]) do
                 if cl == c then
                     dropdown[prog][scr] = nil
@@ -66,72 +62,67 @@ function toggle(prog, edge, height, screen)
 
     if not dropdown[prog][screen] then
         spawnw = function (c)
-            -- Store client
             dropdown[prog][screen] = c
 
-            -- Float client
+            -- Teardrop clients are floaters
             awful.client.floating.set(c, true)
 
-            -- Get screen geometry
-            screengeom = capi.screen[screen].workarea
+            -- Client geometry and placement
+            local screengeom = capi.screen[screen].workarea
 
-            -- Calculate height
-            if height < 1 then
-                height = screengeom.height * height
-            end
+            if width  < 1 then width  = screengeom.width  * width  end
+            if height < 1 then height = screengeom.height * height end
 
-            -- Screen edge
-            if edge < 1 then
-                -- Slide in from the bottom of the screen
-                --   * screen height (resolution-wibox)+wibox size-term height
-                edge = screengeom.height + screengeom.y - height
-            else
-                -- Drop down from the top of the screen
-                --   * not covering the wibox
-                --edge = screengeom.y
-                --   * covering the wibox
-                edge = screengeom.y - screengeom.y
-            end
+            if     horiz == "left"  then x = screengeom.x
+            elseif horiz == "right" then x = screengeom.width - width
+            else   x =  screengeom.x+(screengeom.width-width)/2 end
 
-            -- Resize client
-            c:geometry({
-                x = screengeom.x,
-                y = edge,
-                width = screengeom.width,
-                height = height
-            })
+            if     vert == "bottom" then y = screengeom.height + screengeom.y - height
+            elseif vert == "center" then y = screengeom.y+(screengeom.height-height)/2
+            else   y =  screengeom.y - screengeom.y end
 
-            -- Mark terminal as ontop
+            -- Client properties
+            c:geometry({ x = x, y = y, width = width, height = height })
             c.ontop = true
             c.above = true
+            c.skip_taskbar = true
+            if sticky then c.sticky = true end
+            if c.titlebar then awful.titlebar.remove(c) end
 
-            -- Focus and raise client
             c:raise()
             capi.client.focus = c
-
-            -- Remove hook
-            awful.hooks.manage.unregister(spawnw)
+            capi.client.remove_signal("manage", spawnw)
         end
 
-        -- Add hook
-        awful.hooks.manage.register(spawnw)
-
-        -- Spawn program
+        -- Add manage signal and spawn the program
+        capi.client.add_signal("manage", spawnw)
         awful.util.spawn(prog, false)
     else
-        -- Get client
+        -- Get a running client
         c = dropdown[prog][screen]
 
         -- Switch the client to the current workspace
-        awful.client.movetotag(awful.tag.selected(screen), c)
+        if c:isvisible() == false then c.hidden = true;
+            awful.client.movetotag(awful.tag.selected(screen), c)
+        end
 
-        -- Focus and raise if not hidden
-        if c.hide then
-            c.hide = false
+        -- Focus and raise if hidden
+        if c.hidden then
+            -- Make sure it is centered
+            if vert  == "center" then awful.placement.center_vertical(c)   end
+            if horiz == "center" then awful.placement.center_horizontal(c) end
+            c.hidden = false
             c:raise()
             capi.client.focus = c
-        else
-            c.hide = true
+        else -- Hide and detach tags if not
+            c.hidden = true
+            local ctags = c:tags()
+            for i, v in pairs(ctags) do
+                ctags[i] = nil
+            end
+            c:tags(ctags)
         end
     end
 end
+
+setmetatable(_M, { __call = function(_, ...) return toggle(...) end })
