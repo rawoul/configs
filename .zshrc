@@ -268,6 +268,7 @@ zstyle ':completion:*:functions' ignored-patterns '_*'
 
 ## on processes completion complete all user processes
 zstyle ':completion:*:processes' command 'ps -au$USER'
+zstyle ':completion:*:processes-names' command 'ps -au$USER -o comm='
 
 ## show completion list without asking
 LISTPROMPT=''
