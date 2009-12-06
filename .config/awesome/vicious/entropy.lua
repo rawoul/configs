@@ -1,13 +1,13 @@
 ---------------------------------------------------
 -- Licensed under the GNU General Public License v2
---  * (c) 2009, Adrian C. <anrxc.sysphere.org>
+--  * (c) 2009, Adrian C. <anrxc@sysphere.org>
 ---------------------------------------------------
 
 -- {{{ Grab environment
 local tonumber = tonumber
-local io = { open = io.open }
 local setmetatable = setmetatable
 local math = { ceil = math.ceil }
+local helpers = require("vicious.helpers")
 -- }}}
 
 
@@ -16,15 +16,13 @@ module("vicious.entropy")
 
 
 -- {{{ Entropy widget type
-local function worker(format, poolsize)
+local function worker(format)
+    local random = helpers.pathtotable("/proc/sys/kernel/random")
+
     -- Linux 2.6 has a default entropy pool of 4096-bits
-    if poolsize == nil then poolsize = 4096 end
-
+    local poolsize = tonumber(random.poolsize)
     -- Get available entropy
-    local f = io.open("/proc/sys/kernel/random/entropy_avail")
-    local ent = tonumber(f:read("*line"))
-    f:close()
-
+    local ent = tonumber(random.entropy_avail)
     -- Calculate percentage
     local ent_percent = math.ceil(ent * 100 / poolsize)
 

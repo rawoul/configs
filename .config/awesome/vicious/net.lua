@@ -2,7 +2,7 @@
 -- Licensed under the GNU General Public License v2
 --  * (c) 2009, Adrian C. <anrxc@sysphere.org>
 --  * (c) 2009, Henning Glawe <glaweh@debian.org>
---  * (c) Wicked, Lucas de Vries
+--  * (c) 2008, Lucas de Vries <lucas@glacicle.com>
 ---------------------------------------------------
 
 -- {{{ Grab environment
@@ -24,20 +24,21 @@ module("vicious.net")
 -- Initialise function tables
 local nets = {}
 
+-- {{{ Helper functions
+local function uformat(array, key, value)
+    array["{"..key.."_b}"]  = string.format("%.1f", value)
+    array["{"..key.."_kb}"] = string.format("%.1f", value/1024)
+    array["{"..key.."_mb}"] = string.format("%.1f", value/1024/1024)
+    array["{"..key.."_gb}"] = string.format("%.1f", value/1024/1024/1024)
+    return array
+end
+-- }}}
+
 -- {{{ Net widget type
 local function worker(format)
     -- Get /proc/net/dev
     local f = io.open("/proc/net/dev")
     local args = {}
-
-    local function uformat(array, key, value)
-        array["{"..key.."_b}"]  = string.format("%.1f", value)
-        array["{"..key.."_kb}"] = string.format("%.1f", value/1024)
-        array["{"..key.."_mb}"] = string.format("%.1f", value/1024/1024)
-        array["{"..key.."_gb}"] = string.format("%.1f", value/1024/1024/1024)
-
-        return array
-    end
 
     for line in f:lines() do
         -- Match wmaster0 as well as rt0 (multiple leading spaces)
@@ -45,8 +46,9 @@ local function worker(format)
             local name = string.match(line, "^[%s]?[%s]?[%s]?[%s]?([%w]+):")
             -- Received bytes, first value after the name
             local recv = tonumber(string.match(line, ":[%s]*([%d]+)"))
-            local send = -- Transmited bytes, 7 fields from end of the line
-             tonumber(string.match(line, "([%d]+)%s+%d+%s+%d+%s+%d+%s+%d+%s+%d+%s+%d+%s+%d$"))
+            -- Transmited bytes, 7 fields from end of the line
+            local send = tonumber(string.match(line,
+             "([%d]+)%s+%d+%s+%d+%s+%d+%s+%d+%s+%d+%s+%d+%s+%d$"))
 
             uformat(args, name .. " rx", recv)
             uformat(args, name .. " tx", send)

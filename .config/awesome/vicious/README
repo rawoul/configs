@@ -149,19 +149,14 @@ vicious.widgets.cpufreq
 
 vicious.widgets.thermal
   - provides temperature levels of ACPI thermal zones
-  - takes the thermal zone as an argument, i.e. "TZS0"
+  - takes the thermal zone as an argument, i.e. "thermal_zone0"
   - returns 1st value as temperature of requested thermal zone
 
-vicious.widgets.load
-  - provides system load averages for the past 1, 5, and 15 minutes
-  - returns 1st value as load average for past 1 minute, 2nd for 5
-    minutes and 3rd for 15 minutes
-
 vicious.widgets.uptime
-  - provides system uptime information
-  - returns 1st value as total uptime, 2nd as uptime in days, 3rd as
-    uptime in hours, 4th as uptime in minutes and 5th as uptime in
-    seconds
+  - provides system uptime and load information
+  - returns 1st value as uptime in days, 2nd as uptime in hours, 3rd
+    as uptime in minutes, 4th as load average for past 1 minute, 5th
+    for 5 minutes and 6th for 15 minutes
 
 vicious.widgets.bat
   - provides state, charge, and remaining time for a requested battery
@@ -169,13 +164,6 @@ vicious.widgets.bat
   - returns 1st value as state of requested battery, 2nd as charge
     level in percent and 3rd as remaining (charging or discharging)
     time
-
-vicious.widgets.batat
-  - provides state, charge, and remaining time for all batteries using
-    acpitool
-  - returns 1st value as state of the first battery, 2nd as charge
-    level in percent, 3rd as remaining (charging or discharging) time,
-    4th as state of the second battery etc.
 
 vicious.widgets.mem
   - provides RAM and Swap usage statistics
@@ -189,7 +177,8 @@ vicious.widgets.fs
   - takes an (optional) argument which, if true, includes remote file
     systems, only local file systems are included by default
   - returns a table with custom keys, using mount points as a base:
-    {/ size}, {/ used}, {/ avail}, {/ usep}, {/home size} etc.
+    {/ size_mb}, {/ size_gb}, {/ used_mb}, {/ used_gb}, {/ used_p},
+    {/ avail_mb}, {/ avail_gb}, {/home size_mb} etc.
 
 vicious.widgets.dio
   - provides I/O statistics for requested storage devices
@@ -219,7 +208,9 @@ vicious.widgets.wifi
 
 vicious.widgets.mbox
   - provides the subject of last e-mail in a mbox file
-  - takes the full path to the mbox as an argument
+  - takes the full path to the mbox as an argument, or a table with
+    1st field as path, 2nd as maximum lenght and 3rd (optional) as
+    widget name - if 3rd field is present scrolling will be used
   - returns 1st value as the subject of the last e-mail
 
 vicious.widgets.mboxc
@@ -230,19 +221,20 @@ vicious.widgets.mboxc
 
 vicious.widgets.mdir
   - provides a number of new and unread messages in a Maildir
-    structure
-  - takes the full path to the Maildir structure as an argument
+    structures/directories
+  - takes a table with full paths to Maildir structures as an argument
   - returns 1st value as the count of new messages and 2nd as the
     count of "old" messages lacking the Seen flag
 
 vicious.widgets.gmail
   - provides count of new and subject of last e-mail on Gmail
+  - takes an (optional) argument, if it's a number subject will be
+    truncated, if a table, with 1st field as maximum lenght and 2nd
+    the widget name (i.e. "gmailwidget"), scrolling will be used
   - returns a table with custom keys: {count} and {subject}
 
 vicious.widgets.entropy
   - provides available system entropy
-  - takes the poolsize as an argument, or uses Linux 2.6 default
-    entropy pool of 4096-bits
   - returns 1st value as available system entropy and 2nd value as
     available entropy in percent
 
@@ -260,6 +252,9 @@ vicious.widgets.pacman
 
 vicious.widgets.mpd
   - provides the currently playing song in MPD
+  - takes an (optional) argument, if it's a number song name will be
+    truncated, if a table, with 1st field as maximum lenght and 2nd
+    the widget name (i.e. "mpdwidget"), scrolling will be used
   - returns 1st value as the currently playing song
 
 vicious.widgets.volume
@@ -382,7 +377,7 @@ Example
   uptimewidget = widget({ type = 'textbox' })
   vicious.register(uptimewidget, vicious.widgets.uptime,
     function (widget, args)
-      return string.format('Uptime: %2dd %02d:%02d ', args[2], args[3], args[4])
+      return string.format('Uptime: %2dd %02d:%02d ', args[1], args[2], args[3])
     end, 61)
 
   - uses string.format for padding uptime values to a minimum amount
