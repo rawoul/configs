@@ -1,6 +1,6 @@
 ---------------------------------------------------
 -- Licensed under the GNU General Public License v2
---  * (c) 2009, Adrian C. <anrxc@sysphere.org>
+--  * (c) 2010, Adrian C. <anrxc@sysphere.org>
 ---------------------------------------------------
 
 -- {{{ Grab environment
@@ -15,23 +15,25 @@ local math = {
 -- }}}
 
 
--- Batsys: provides state, charge, and remaining time for a requested battery
-module("vicious.bat")
+-- Bat: provides state, charge, and remaining time for a requested battery
+module("vicious.widgets.bat")
 
 
 -- {{{ Battery widget type
-local function worker(format, batid)
-    local battery = helpers.pathtotable("/sys/class/power_supply/" .. batid)
+local function worker(format, warg)
+    if not warg then return end
+
+    local battery = helpers.pathtotable("/sys/class/power_supply/"..warg)
     local battery_state = {
-        ["Full\n"] = "↯",
-        ["Unknown\n"] = "⌁",
-        ["Charged\n"] = "↯",
-        ["Charging\n"] = "+",
+        ["Full\n"]        = "↯",
+        ["Unknown\n"]     = "⌁",
+        ["Charged\n"]     = "↯",
+        ["Charging\n"]    = "+",
         ["Discharging\n"] = "-"
     }
 
     -- Check if the battery is present
-    if not battery.present == "1\n" then
+    if battery.present ~= "1\n" then
         return {battery_state["Unknown\n"], 0, "N/A"}
     end
 

@@ -1,12 +1,12 @@
 ---------------------------------------------------
 -- Licensed under the GNU General Public License v2
---  * (c) 2009, Adrian C. <anrxc@sysphere.org>
---  * (c) 2008, Lucas de Vries <lucas@glacicle.com>
+--  * (c) 2010, Adrian C. <anrxc@sysphere.org>
+--  * (c) 2009, Lucas de Vries <lucas@glacicle.com>
 ---------------------------------------------------
 
 -- {{{ Grab environment
 local ipairs = ipairs
-local io = { open = io.open }
+local io = { lines = io.lines }
 local setmetatable = setmetatable
 local math = { floor = math.floor }
 local table = { insert = table.insert }
@@ -18,21 +18,20 @@ local string = {
 
 
 -- Cpu: provides CPU usage for all available CPUs/cores
-module("vicious.cpu")
+module("vicious.widgets.cpu")
 
 
--- Initialise function tables
+-- Initialize function tables
 local cpu_usage  = {}
 local cpu_total  = {}
 local cpu_active = {}
 
 -- {{{ CPU widget type
 local function worker(format)
-    -- Get /proc/stat
-    local f = io.open("/proc/stat")
     local cpu_lines = {}
 
-    for line in f:lines() do
+    -- Get CPU stats
+    for line in io.lines("/proc/stat") do
         if string.find(line, "^cpu") then
             cpu_lines[#cpu_lines+1] = {}
 
@@ -41,17 +40,12 @@ local function worker(format)
             end
         end
     end
-    f:close()
 
     -- Ensure tables are initialized correctly
     while #cpu_total < #cpu_lines do
-        table.insert(cpu_total, 0)
-    end
-    while #cpu_active < #cpu_lines do
+        table.insert(cpu_total,  0)
         table.insert(cpu_active, 0)
-    end
-    while #cpu_usage < #cpu_lines do
-        table.insert(cpu_usage, 0)
+        table.insert(cpu_usage,  0)
     end
 
     local total_new   = {}

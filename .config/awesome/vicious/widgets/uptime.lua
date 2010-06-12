@@ -1,7 +1,7 @@
 ---------------------------------------------------
 -- Licensed under the GNU General Public License v2
---  * (c) 2009, Adrian C. <anrxc@sysphere.org>
---  * (c) 2008, Lucas de Vries <lucas@glacicle.com>
+--  * (c) 2010, Adrian C. <anrxc@sysphere.org>
+--  * (c) 2009, Lucas de Vries <lucas@glacicle.com>
 ---------------------------------------------------
 
 -- {{{ Grab environment
@@ -13,7 +13,7 @@ local helpers = require("vicious.helpers")
 
 
 -- Uptime: provides system uptime and load information
-module("vicious.uptime")
+module("vicious.widgets.uptime")
 
 
 -- {{{ Uptime widget type
@@ -26,10 +26,8 @@ local function worker(format)
     local up_h = math.floor((up_t  % (3600 * 24)) / 3600)
     local up_m = math.floor(((up_t % (3600 * 24)) % 3600) / 60)
 
-    -- Get load averages
-    local l1, l5, l15 =  -- Get load averages for past 1, 5 and 15 minutes
-      string.match(proc.loadavg, "([%d]*%.[%d]*)%s([%d]*%.[%d]*)%s([%d]*%.[%d]*)")
-
+    local l1, l5, l15 = -- Get load averages for past 1, 5 and 15 minutes
+      string.match(proc.loadavg, "([%d%.]+)[%s]([%d%.]+)[%s]([%d%.]+)")
     return {up_d, up_h, up_m, l1, l5, l15}
 end
 -- }}}

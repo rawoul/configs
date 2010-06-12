@@ -1,7 +1,7 @@
 ---------------------------------------------------
 -- Licensed under the GNU General Public License v2
---  * (c) 2009, Adrian C. <anrxc@sysphere.org>
---  * (c) 2008, Lucas de Vries <lucas@glacicle.com>
+--  * (c) 2010, Adrian C. <anrxc@sysphere.org>
+--  * (c) 2009, Lucas de Vries <lucas@glacicle.com>
 ---------------------------------------------------
 
 -- {{{ Grab environment
@@ -11,7 +11,7 @@ local setmetatable = setmetatable
 
 
 -- Date: provides access to os.date with optional custom formatting
-module("vicious.date")
+module("vicious.widgets.date")
 
 
 -- {{{ Date widget type

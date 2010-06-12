@@ -1,6 +1,6 @@
 ---------------------------------------------------
 -- Licensed under the GNU General Public License v2
---  * (c) 2009, Adrian C. <anrxc@sysphere.org>
+--  * (c) 2010, Adrian C. <anrxc@sysphere.org>
 ---------------------------------------------------
 
 -- {{{ Grab environment
@@ -11,12 +11,14 @@ local string = { find = string.find }
 
 
 -- Mboxc: provides the count of total, old and new messages in mbox files
-module("vicious.mboxc")
+module("vicious.widgets.mboxc")
 
 
 -- {{{ Mbox count widget type
 local function worker(format, warg)
-    -- Initialise counters
+    if not warg then return end
+
+    -- Initialize counters
     local count = { old = 0, total = 0, new = 0 }
 
     -- Get data from mbox files
@@ -24,8 +26,8 @@ local function worker(format, warg)
         local f = io.open(warg[i])
 
         while true do
-            -- Read the mbox line by line, if we are going to read some
-            -- *HUGE* folders then switch to reading chunks
+            -- Read the mbox line by line, if we are going to read
+            -- some *HUGE* folders then switch to reading chunks
             local lines = f:read("*line")
             if not lines then break end
 

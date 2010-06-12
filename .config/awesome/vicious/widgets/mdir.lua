@@ -1,6 +1,6 @@
 ---------------------------------------------------
 -- Licensed under the GNU General Public License v2
---  * (c) 2009, Adrian C. <anrxc@sysphere.org>
+--  * (c) 2010, Adrian C. <anrxc@sysphere.org>
 --  * (c) Maildir Biff Widget, Fredrik Ax
 ---------------------------------------------------
 
@@ -10,13 +10,15 @@ local setmetatable = setmetatable
 -- }}}
 
 
--- Mdir: provides a number of new and unread messages in a Maildir structure
-module("vicious.mdir")
+-- Mdir: provides the number of new and unread messages in Maildir structures/dirs
+module("vicious.widgets.mdir")
 
 
 -- {{{ Maildir widget type
 local function worker(format, warg)
-    -- Initialise counters
+    if not warg then return end
+
+    -- Initialize counters
     local count = { new = 0, cur = 0 }
 
     for i=1, #warg do
