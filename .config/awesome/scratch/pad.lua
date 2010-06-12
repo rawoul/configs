@@ -1,24 +1,24 @@
 ---------------------------------------------------------------
 -- Basic scratchpad manager for the awesome window manager
 ---------------------------------------------------------------
--- Adrian C. <anrxc.sysphere.org>
+-- Coded by: * Adrian C. (anrxc) <anrxc@sysphere.org>
 -- Licensed under the WTFPL version 2
 --   * http://sam.zoy.org/wtfpl/COPYING
 ---------------------------------------------------------------
 -- To use this module add:
---     require("scratchpad")
+--     require("scratch")
 -- to the top of your rc.lua, and call:
---     scratchpad.set(c, width, height, sticky, screen)
+--     scratch.pad.set(c, width, height, sticky, screen)
 -- from a clientkeys binding, and:
---     scratchpad.toggle(screen)
+--     scratch.pad.toggle(screen)
 -- from a globalkeys binding.
 --
 -- Parameters:
 --     c      - Client to scratch or un-scratch
 --     width  - Width in absolute pixels, or width percentage
---              when < 1 (0.50 (50% of the screen) by default)
+--              when <= 1 (0.50 (50% of the screen) by default)
 --     height - Height in absolute pixels, or height percentage
---              when < 1 (0.50 (50% of the screen) by default)
+--              when <= 1 (0.50 (50% of the screen) by default)
 --     sticky - Visible on all tags, false by default
 --     screen - Screen (optional), mouse.screen by default
 ---------------------------------------------------------------
@@ -31,94 +31,88 @@ local capi = {
     screen = screen
 }
 
--- Scratchpad: Basic scratchpad manager for the awesome window manager
-module("scratchpad")
+-- Scratchpad: basic scratchpad manager for the awesome window manager
+module("scratch.pad")
 
-local scratch = {}
+local scratchpad = {}
+
+-- Toggle a set of properties on a client.
+local function toggleprop(c, prop)
+    c.ontop  = prop.ontop  or false
+    c.above  = prop.above  or false
+    c.hidden = prop.hidden or false
+    c.sticky = prop.stick  or false
+    c.skip_taskbar = prop.task or false
+end
 
 -- Scratch the focused client, or un-scratch and tile it. If another
 -- client is already scratched, replace it with the focused client.
 function set(c, width, height, sticky, screen)
-    local width  = width  or 0.50
-    local height = height or 0.50
-    local sticky = sticky or false
-    local screen = screen or capi.mouse.screen
+    width  = width  or 0.50
+    height = height or 0.50
+    sticky = sticky or false
+    screen = screen or capi.mouse.screen
 
     local function setscratch(c)
-        -- Scratchpad is floating
-        awful.client.floating.set(c, true)
+        -- Scratchpad is floating and has no titlebar
+        awful.client.floating.set(c, true); awful.titlebar.remove(c)
+
+        -- Scratchpad client properties
+        toggleprop(c, {ontop=true, above=true, task=true, stick=sticky})
 
         -- Scratchpad geometry and placement
         local screengeom = capi.screen[screen].workarea
+        if width  <= 1 then width  = screengeom.width  * width  end
+        if height <= 1 then height = screengeom.height * height end
 
-        if width  < 1 then width  = screengeom.width  * width  end
-        if height < 1 then height = screengeom.height * height end
-
-        c:geometry({ -- Client is always centered on screen
+        c:geometry({ -- Scratchpad is always centered on screen
             x = screengeom.x + (screengeom.width  - width)  / 2,
             y = screengeom.y + (screengeom.height - height) / 2,
             width = width,      height = height
         })
 
-        -- Scratchpad properties
-        c.ontop = true
-        c.above = true
-        c.skip_taskbar = true
-        if sticky then c.sticky = true end
-        if c.titlebar then awful.titlebar.remove(c) end
-
         -- Scratchpad should not loose focus
-        c:raise()
-        capi.client.focus = c
+        c:raise(); capi.client.focus = c
     end
 
     -- Prepare a table for storing clients,
-    if not scratch["pad"] then scratch["pad"] = {}
+    if not scratchpad.pad then scratchpad.pad = {}
         -- add unmanage signal for scratchpad clients
         capi.client.add_signal("unmanage", function (c)
-            local oc = scratch["pad"][screen]
-            if oc == c then
-                scratch["pad"][screen] = nil
+            if scratchpad.pad[screen] == c then
+                scratchpad.pad[screen] = nil
             end
         end)
     end
 
     -- If the scratcphad is emtpy, store the client,
-    if not scratch["pad"][screen] then
-        scratch["pad"][screen] = c
+    if not scratchpad.pad[screen] then
+        scratchpad.pad[screen] = c
         -- then apply geometry and properties
         setscratch(c)
     else -- If a client is already scratched,
-        local oc = scratch["pad"][screen]
-        -- compare it with the focused client
-        if oc == c then
-            -- If it matches then unscratch and clear the table
-            awful.client.floating.toggle(oc); oc.sticky = false
-            oc.ontop = false; oc.above = false
-            scratch["pad"][screen] = nil
-        else -- If they don't match, unscratch and replace it
-            oc.hidden = false; oc.sticky = false
-            oc.ontop = false; oc.above = false
-            awful.client.floating.toggle(oc)
-            scratch["pad"][screen] = c
-            setscratch(c)
-        end
+        local oc = scratchpad.pad[screen]
+        -- unscratch, and compare it with the focused client
+        awful.client.floating.toggle(oc); toggleprop(oc, {})
+        -- If it matches clear the table, if not replace it
+        if   oc == c then scratchpad.pad[screen] =     nil
+        else scratchpad.pad[screen] = c; setscratch(c) end
     end
 end
 
 -- Move the scratchpad to the current workspace, focus and raise it
 -- when it's hidden, or hide it when it's visible.
 function toggle(screen)
-    local screen = screen or capi.mouse.screen
+    screen = screen or capi.mouse.screen
 
     -- Check if we have a client on storage,
-    if scratch["pad"] and
-       scratch["pad"][screen] ~= nil
+    if scratchpad.pad and
+       scratchpad.pad[screen] ~= nil
     then -- and get it out, to play
-        local c = scratch["pad"][screen]
+        local c = scratchpad.pad[screen]
 
         -- If it's visible on another tag hide it,
-        if c:isvisible() == false then c.hidden = true;
+        if c:isvisible() == false then c.hidden = true
             -- and move it to the current worskpace
             awful.client.movetotag(awful.tag.selected(screen), c)
         end
@@ -127,8 +121,7 @@ function toggle(screen)
         if c.hidden then
             awful.placement.centered(c)
             c.hidden = false
-            c:raise()
-            capi.client.focus = c
+            c:raise(); capi.client.focus = c
         else -- hide it if it's not
             c.hidden = true
         end

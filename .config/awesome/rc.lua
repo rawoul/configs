@@ -3,8 +3,7 @@ require("awful.autofocus")
 require("awful.rules")
 require("beautiful")
 require("vicious")
-require("teardrop")
-require("scratchpad")
+require("scratch")
 
 --------------------------------------------------------------------------------
 -- Variables
@@ -243,13 +242,13 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "w", function () menu_main:show(true)        end),
+    awful.key({ modkey,           }, "w", function () menu_main:show({ keygrabber = true }) end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1) end),
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1) end),
-    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus( 1)       end),
-    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus(-1)       end),
+    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
+    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
     awful.key({ modkey,           }, "Tab",
         function ()
@@ -285,18 +284,19 @@ globalkeys = awful.util.table.join(
               end),
 
     -- Drop down terminal
-    awful.key({ modkey            }, "grave", function () teardrop.toggle(terminal) end),
-    awful.key({ modkey            }, "s",     function () scratchpad.toggle() end)
+    awful.key({ modkey            }, "grave", function () scratch.drop(terminal) end),
+    awful.key({ modkey            }, "s",     function () scratch.pad.toggle() end)
 )
 
 clientkeys = awful.util.table.join(
-    awful.key({ modkey            }, "d",      function (c) scratchpad.set(c) end),
+    awful.key({ modkey            }, "d",      function (c) scratch.pad.set(c) end),
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
+    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",      function (c) c.minimized = not c.minimized    end),
     awful.key({ modkey,           }, "m",
         function (c)
