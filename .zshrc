@@ -49,7 +49,10 @@ export BROWSER="google-chrome"
 setopt	NO_all_export		\
 	always_to_end		\
 	auto_cd			\
+	auto_list		\
+	auto_menu		\
 	auto_name_dirs		\
+	NO_auto_param_slash	\
 	auto_pushd		\
 	NO_auto_resume		\
 	NO_beep			\
@@ -149,7 +152,7 @@ fi
 
 ## debian aliases
 if [[ -f /etc/debian_version ]]; then
-	function apts() { apt-cache search "$@" | grep "$@" }
+	function apts() { apt-cache search "$@" | grep -i "$@" }
 	alias apti='apt-get install'
 	alias aptr='apt-get remove --purge'
 	alias aptu='apt-get update'
@@ -223,24 +226,38 @@ if [[ -z $LS_COLORS ]]; then
 	export LS_COLORS
 fi
 
-## completion list colors
-zmodload -i zsh/complist
-
 ## Turn on completion
-autoload -U compinit
-compinit
+autoload -U compinit && compinit -i
 
 ## filename suffixes to ignore during completion
 #fignore=(.o)
 
+## use caching to make completion for cammands such as dpkg and apt usable.
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' cache-path "${ZDOTDIR:-$HOME}/.zcompcache"
+
 ## completers
 zstyle ':completion:*' completer _expand _complete _correct _approximate _ignored
 
-## formatting and messages
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*' format '%{[33m%}:: %{[1m%}%d%{[0m%}'
-zstyle ':completion:*:warnings' format '%{[1;31m%}!! No matches for: %d%{[0m%}'
+## allow one error in approximate completer
+zstyle ':completion:*:approximate:*' max-errors 1 numeric
+
+## don't complete unavailable commands.
+zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
+
+## group matches and describe.
+zstyle ':completion:*:*:*:*:*' menu select=3
+zstyle ':completion:*:matches' group 'yes'
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:options' auto-description '%d'
+zstyle ':completion:*:corrections' format '%F{green}:: %d (errors: %e)%f'
+zstyle ':completion:*:descriptions' format '%F{yellow}:: %d%f'
+zstyle ':completion:*:messages' format '%F{purple}:: %d%f'
+zstyle ':completion:*:warnings' format '%F{red}:: no matches found%f'
+zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+zstyle ':completion:*' format '%F{yellow}:: %d%f'
 zstyle ':completion:*' group-name ''
+zstyle ':completion:*' verbose yes
 
 ## case-insensitive completion
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
@@ -248,23 +265,14 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 ## colors
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-## allow one error in approximate completer
-zstyle ':completion:*' max-errors 1
-
 ## menu completion only if the prefix is valid
 zstyle ':completion:*' insert-unambiguous true
-
-## menu will appear only if there are at least 3 matches
-zstyle ':completion:*' menu select=3 #search
 
 ## show original command in list
 zstyle ':completion:*' original true
 
 ## remve trailing slashes after a directory
 zstyle ':completion:*' squeeze-slashes true
-
-## ignore completion functions (until the _ignored completer)
-zstyle ':completion:*:functions' ignored-patterns '_*'
 
 ## on processes completion complete all user processes
 zstyle ':completion:*:processes' command 'ps -au$USER'
@@ -280,27 +288,21 @@ LISTPROMPT=''
 setopt prompt_subst
 
 ## set colors
-autoload colors
-colors
 for color in BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
-	eval $color='%{$fg_bold[${(L)color}]%}'
-	eval LIGHT_$color='%{$fg[${(L)color}]%}'
-	(( count = $count + 1 ))
+	eval $color='%B%F{${(L)color}}'
 done
-DEF="%{$reset_color%}"
 
+DEF='%f%b'
 MCOLOR=$BLUE
 
 local prompt_begin="${MCOLOR}[%(!.${RED}.${WHITE})%n${MCOLOR}@${WHITE}%m\
 ${MCOLOR}]${DEF}"
 
-local prompt_end="${DEF}"
+PS1="$prompt_begin ${MCOLOR}[${WHITE}%20<...<%~%<<${MCOLOR}]${DEF} "
 
-PS1="$prompt_begin ${MCOLOR}[${WHITE}%20<...<%~%<<${MCOLOR}]$prompt_end "
+PS2="$prompt_begin ${MCOLOR}%_>%${DEF} "
 
-PS2="$prompt_begin ${MCOLOR}%_>$prompt_end "
-
-PS3="$prompt_begin ${MCOLOR}?>$prompt_end "
+PS3="$prompt_begin ${MCOLOR}?>${DEF} "
 
 RPROMPT=" ${MCOLOR}[%(?.${GREEN}\\o/.${RED}\\o_${DEF} ${WHITE}%139(?,Seg \
 fault,%130(?,Interrupt,%138(?,Bus Error,%?)))${DEF} ${RED}_o/)${MCOLOR}]\
