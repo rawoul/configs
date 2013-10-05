@@ -75,6 +75,7 @@ URxvt.background:		gray5
 URxvt.foreground:		gray85
 URxvt.colorBD:			#e8f1ff
 URxvt.colorUL:			#f0f1e8
+URxvt.termName:			rxvt-unicode
 
 !black
 *color0:			black
