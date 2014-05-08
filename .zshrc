@@ -173,15 +173,7 @@ purge () {
 ## remove \r in files
 dos2unix()
 {
-	for i in "$@"; do
-		if [ -f "$i" ]; then
-			TMP="$i.$$"
-			if tr -d '\r' < "$i" > "$TMP"; then
-				cp -a -f "$TMP" "$i"
-			fi
-			rm -f "$TMP"
-		fi
-	done
+	sed -i -e 's/\r$//' "$@"
 }
 
 ## print dir and job name in term title
