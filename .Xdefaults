@@ -54,7 +54,7 @@ URxvt.boldFont:
 URxvt.italicFont:
 URxvt.boldItalicFont:
 URxvt.skipBuiltinGlyphs:	true
-URxvt.saveLines:		5000
+URxvt.saveLines:		10000
 URxvt.geometry:			80x60
 URxvt.scrollBar:		false
 URxvt.scrollTtyOutput:		false
