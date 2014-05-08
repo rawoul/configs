@@ -300,7 +300,7 @@ ${MCOLOR}]${DEF}"
 
 PS1="$prompt_begin ${MCOLOR}[${WHITE}%20<...<%~%<<${MCOLOR}]${DEF} "
 
-PS2="$prompt_begin ${MCOLOR}%_>%${DEF} "
+PS2="$prompt_begin ${MCOLOR}%_>${DEF} "
 
 PS3="$prompt_begin ${MCOLOR}?>${DEF} "
 
