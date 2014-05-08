@@ -32,7 +32,7 @@ if &t_Co == 88
     hi CursorColumn ctermbg=80
     hi CursorLine cterm=NONE ctermbg=80
 elseif &t_Co == 256
-    hi SpecialKey ctermfg=235
+    hi SpecialKey ctermfg=237
     hi Pmenu ctermbg=24 ctermfg=lightgray
     hi PmenuSel ctermbg=39 ctermfg=white
     hi DiffAdd ctermbg=24
