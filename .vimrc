@@ -98,7 +98,7 @@ set noexpandtab
 set autoindent
 " set smartindent
 set smartindent
-set cinoptions=g0,t0,(0,Ws,m1,:0
+set cinoptions=g0,t0,Ws,m1,:0
 
 " SEARCH OPTIONS
 " higlight search
@@ -137,10 +137,12 @@ au FileType perl setlocal sw=2 et
 augroup c
 	autocmd!
 	autocmd FileType c,cpp setlocal formatprg=indent
-	"autocmd FileType c,cpp setlocal ts=8 sw=8 sts=0
+	autocmd FileType cpp setlocal et ts=8 sw=4 sts=4
+	autocmd FileType c setlocal cinoptions+=(0
 	"autocmd FileType c,cpp setlocal cindent
 	"autocmd FileType c,cpp imap <buffer> { {<CR> <BS><CR>}<Up><End>
 augroup end
+let g:c_syntax_for_h = 1
 
 " BINDINGS
 " Function keys
