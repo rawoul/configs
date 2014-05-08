@@ -37,6 +37,7 @@ XTerm*cursorColor:		gray
 XTerm*cursorColor2:		#000033
 XTerm*background:		black
 XTerm*foreground:		#e0e0e0
+XTerm*alternateScroll:		true
 
 Aterm.shading:			35
 Aterm.borderWidth:		1
@@ -60,7 +61,8 @@ URxvt.scrollTtyOutput:		false
 URxvt.scrollTtyKeypress:	true
 URxvt.scrollWithBuffer:		true
 URxvt.jumpScroll:		true
-!URXvt.secondaryScreen:		false
+URXvt.secondaryScreen:		true
+URXvt.secondaryScroll:		true
 URxvt.urgentOnBell:		true
 URxvt.visualBell:		false
 URxvt.internalBorder:		2
