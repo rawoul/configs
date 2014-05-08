@@ -29,6 +29,14 @@ if &t_Co == 88
     hi PmenuSel ctermbg=81
     hi DiffChange ctermbg=32
     hi DiffText ctermbg=48
+elseif &t_Co == 256
+    hi SpecialKey ctermfg=235
+    hi Pmenu ctermbg=24 ctermfg=lightgray
+    hi PmenuSel ctermbg=39 ctermfg=white
+    hi DiffAdd ctermbg=24
+    hi DiffDelete ctermbg=67 ctermfg=24
+    hi DiffChange ctermbg=52
+    hi DiffText ctermbg=88
 else
     hi SpecialKey ctermfg=0 cterm=bold
 endif

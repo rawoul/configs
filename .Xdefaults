@@ -72,12 +72,11 @@ URxvt.shading:			15
 URxvt.pointerColor:		white
 URxvt.cursorColor:		gray80
 URxvt.cursorColor2:		gray10
-!URxvt.depth:			32
+URxvt.depth:			32
 URxvt.background:		gray5
 URxvt.foreground:		gray85
 URxvt.colorBD:			#e8f1ff
 URxvt.colorUL:			#f0f1e8
-URxvt.termName:			rxvt-unicode
 
 !black
 *color0:			black
