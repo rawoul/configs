@@ -1,8 +1,8 @@
 *FontList:			codingfonttobi1
 *Font:				codingfonttobi1
 *PlanFont:			codingfonttobi1
-*Dialog.font:			snap
-*Button.font:			snap
+!*Dialog.font:			smoothansi
+!*Button.font:			smoothansi
 
 emacs.geometry:			125x60
 emacs.popup.Font:		7x13
