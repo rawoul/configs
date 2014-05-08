@@ -270,6 +270,12 @@ zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*:processes' command 'ps -au$USER'
 zstyle ':completion:*:processes-names' command 'ps -au$USER -o comm='
 
+## complete ssh known hosts
+local _myhosts;
+_myhosts=( ${${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ }:#\!*}
+${=${(f)"$(cat /etc/hosts(|)(N) <<(ypcat hosts 2>/dev/null))"}%%\#*} );
+zstyle ':completion:*' hosts $_myhosts
+
 ## show completion list without asking
 LISTPROMPT=''
 
