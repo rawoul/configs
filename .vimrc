@@ -125,6 +125,8 @@ au FileType sh setlocal makeprg=./$*
 au BufNewFile,BufRead *.fbxbus setf fbxbus
 " lua template
 au BufNewFile,BufRead *.hlpt setf html
+" config
+au BufNewFile,BufRead Config*.in setf kconfig
 " html
 au FileType html,xhtml setlocal sw=4 ts=4
 " lua
