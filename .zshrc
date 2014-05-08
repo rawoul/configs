@@ -12,7 +12,7 @@ limit -s stack 8192 core 0
 
 ## keychain
 if which keychain > /dev/null; then
-    eval `keychain --nogui --quiet --inherit any-once --agents ssh --eval id_dsa`
+    eval `keychain --nogui --quiet --inherit any-once --eval id_rsa`
 fi
 
 ################################################################################
