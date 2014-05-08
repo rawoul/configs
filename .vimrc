@@ -29,6 +29,8 @@ if &t_Co == 88
     hi PmenuSel ctermbg=81
     hi DiffChange ctermbg=32
     hi DiffText ctermbg=48
+    hi CursorColumn ctermbg=80
+    hi CursorLine cterm=NONE ctermbg=80
 elseif &t_Co == 256
     hi SpecialKey ctermfg=235
     hi Pmenu ctermbg=24 ctermfg=lightgray
@@ -37,6 +39,8 @@ elseif &t_Co == 256
     hi DiffDelete ctermbg=67 ctermfg=24
     hi DiffChange ctermbg=52
     hi DiffText ctermbg=88
+    hi CursorColumn ctermbg=235
+    hi CursorLine cterm=NONE ctermbg=235
 else
     hi SpecialKey ctermfg=0 cterm=bold
 endif
@@ -67,6 +71,9 @@ set showcmd
 set list listchars=tab:>-
 " highlight trailing spaces
 match Error /\s\+$/
+" show cursor position
+"set cursorcolumn
+set cursorline
 
 " EDITING OPTIONS
 " convert to another locale only if encoding is different
