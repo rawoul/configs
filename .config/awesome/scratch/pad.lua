@@ -45,6 +45,9 @@ local function toggleprop(c, prop)
     c.hidden = prop.hidden or false
     c.sticky = prop.stick  or false
     c.skip_taskbar = prop.task or false
+    c.fullscreen = prop.fullscreen or false
+    c.maximized_horizontal = prop.maximized_horizontal or false
+    c.maximized_vertical = prop.maximized_vertical or false
 end
 
 -- Scratch the focused client, or un-scratch and tile it. If another
@@ -99,7 +102,7 @@ function pad.set(c, width, height, sticky, screen)
     else -- If a client is already scratched,
         local oc = scratchpad.pad[screen]
         -- unscratch, and compare it with the focused client
-        awful.client.floating.toggle(oc); toggleprop(oc, {})
+        awful.client.floating.delete(oc); toggleprop(oc, {})
         -- If it matches clear the table, if not replace it
         if   oc == c then scratchpad.pad[screen] =     nil
         else scratchpad.pad[screen] = c; setscratch(c) end
