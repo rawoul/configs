@@ -40,6 +40,16 @@ end
 -- Themes define colours, icons, and wallpapers
 beautiful.init(awful.util.getdir("config") .. "/theme.lua")
 
+-- Override awesome.quit when we're using GNOME
+_awesome_quit = awesome.quit
+awesome.quit = function()
+    if os.getenv("DESKTOP_SESSION") == "awesome-gnome" then
+        os.execute("/usr/bin/gnome-session-quit --logout --no-prompt")
+    else
+        _awesome_quit()
+    end
+end
+
 -- Common programs
 terminal = "urxvtc"
 editor = os.getenv("EDITOR") or "vim"
