@@ -54,6 +54,7 @@ end
 terminal = "urxvtc"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
+screensaver = "gnome-screensaver-command --activate"
 
 -- Modifier key
 modkey = "Mod4"
@@ -316,6 +317,9 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
+
+    -- Screensaver
+    awful.key({ modkey            }, "Pause", function () awful.util.spawn(screensaver) end),
 
     -- Drop down terminal
     awful.key({ modkey            }, "s",     function () scratch.pad.toggle() end),
