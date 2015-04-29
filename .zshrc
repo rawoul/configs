@@ -56,7 +56,7 @@ setopt	NO_all_export		\
 	auto_pushd		\
 	NO_auto_resume		\
 	NO_beep			\
-	cdable_vars		\
+	NO_cdable_vars		\
 	NO_chase_dots		\
 	NO_chase_links		\
 	complete_aliases	\
