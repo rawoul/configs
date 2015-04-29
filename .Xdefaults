@@ -67,12 +67,12 @@ URxvt.urgentOnBell:		true
 URxvt.visualBell:		false
 URxvt.internalBorder:		2
 !URxvt.tintColor:		#619ce6
-URxvt.transparent:		true
+!URxvt.transparent:		true
 URxvt.shading:			15
 URxvt.pointerColor:		white
 URxvt.cursorColor:		gray80
 URxvt.cursorColor2:		gray10
-URxvt.depth:			32
+!URxvt.depth:			32
 URxvt.background:		gray10
 URxvt.foreground:		gray85
 URxvt.colorBD:			#e8f1ff
