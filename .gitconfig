@@ -9,8 +9,27 @@
 	interative = auto
 [core]
 	editor = vim
+	autocrlf = input
 [log]
 	date = local
 [alias]
 	st = status
 	ci = commit
+	ri = rebase --interactive --autosquash
+	fixup = !sh -c 'git commit -m \"fixup! $(git log -1 --format='\\''%s'\\'' $@)\"' -
+	squash = !sh -c 'git commit -m \"squash! $(git log -1 --format='\\''%s'\\'' $@)\"' -
+	cp = cherry-pick
+	activity = for-each-ref --sort='committerdate' --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+[rerere]
+	enabled = true
+	autoupdate = true
+[merge]
+	tool = vimdiff
+[rebase]
+	stat = true
+[push]
+	default = tracking
+[sendemail]
+	smtpserver = smtp.free.fr
+[receive]
+	denyCurrentBranch = refuse
