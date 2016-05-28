@@ -193,3 +193,8 @@ let g:ycm_warning_symbol = '✘✘'
 "let g:ycm_min_num_of_chars_for_completion = 99
 
 nnoremap <silent> <leader>f :YcmCompleter GoTo<CR>
+
+" Location list toggling
+let g:lt_location_list_toggle_map = '<leader>l'
+let g:lt_quickfix_list_toggle_map = '<leader>q'
+let g:lt_height = 10
