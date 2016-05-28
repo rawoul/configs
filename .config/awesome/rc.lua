@@ -9,7 +9,6 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
-local menubar = require("menubar")
 -- scratchpad
 local scratch = require("scratch")
 -- Widgets
@@ -114,7 +113,7 @@ end
 -- }}}
 
 -- {{{ Menu
-menu_awesome = {
+submenu_awesome = {
     { "manual", terminal .. " -e man awesome" },
     { "edit config", editor_cmd .. " " .. awesome.conffile },
     { "restart", awesome.restart },
@@ -123,15 +122,12 @@ menu_awesome = {
 
 menu_main = awful.menu({
     items = {
-        { "awesome", menu_awesome, beautiful.awesome_icon },
+        { "awesome", submenu_awesome, beautiful.awesome_icon },
+        { "xdg", require("menugen").build_menu() },
         { "open terminal", terminal },
-    }
+    },
+    theme = { height = 16, width = 140 }
 })
-
--- Menubar configuration
--- Set the terminal for applications that require it
-menubar.utils.terminal = terminal
--- }}}
 
 -- {{{ Widgets
 -- Clock
