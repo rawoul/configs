@@ -4,3 +4,6 @@
 [submodule ".vim/bundle/nofrils"]
 	path = .vim/bundle/nofrils
 	url = https://github.com/robertmeta/nofrils.git
+[submodule ".vim/bundle/YouCompleteMe"]
+	path = .vim/bundle/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe.git
