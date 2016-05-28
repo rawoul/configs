@@ -1,6 +1,11 @@
 " GENERAL OPTIONS
 set nocompatible
 set shortmess=fmxoOtTI
+
+" load bundles
+filetype off
+set rtp+=~/.vim/bundle/nofrils
+
 " allow to switch buffer without saving
 set hidden
 " bind arrows
