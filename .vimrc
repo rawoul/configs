@@ -38,6 +38,8 @@ if &t_Co == 88
     hi DiffText ctermbg=48
     hi CursorColumn ctermbg=80
     hi CursorLine cterm=NONE ctermbg=80
+    hi LineNr ctermfg=grey
+    hi CursorLineNr ctermfg=white
 elseif &t_Co == 256
     hi SpecialKey ctermfg=237
     hi Pmenu ctermbg=24 ctermfg=lightgray
@@ -48,8 +50,13 @@ elseif &t_Co == 256
     hi DiffText ctermbg=88
     hi CursorColumn ctermbg=235
     hi CursorLine cterm=NONE ctermbg=235
+    hi LineNr ctermfg=240
+    hi CursorLineNr ctermfg=244
+    hi ColorColumn ctermbg=234
 else
     hi SpecialKey ctermfg=0 cterm=bold
+    hi LineNr ctermfg=grey
+    hi CursorLineNr ctermfg=white
 endif
 " no bip
 set novisualbell
@@ -81,6 +88,11 @@ match Error /\s\+$/
 " show cursor position
 "set cursorcolumn
 set cursorline
+" show line numbers
+set number
+set relativenumber
+" highlight 80 columns limit
+set colorcolumn=80
 
 " EDITING OPTIONS
 " convert to another locale only if encoding is different
