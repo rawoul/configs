@@ -6,6 +6,7 @@ set shortmess=fmxoOtTI
 filetype off
 set rtp+=~/.vim/bundle/nofrils
 set rtp+=~/.vim/bundle/rust.vim
+set rtp+=~/.vim/bundle/vim-qml
 set rtp+=~/.vim/bundle/YouCompleteMe
 
 " allow to switch buffer without saving
@@ -150,6 +151,8 @@ au BufNewFile,BufRead Config*.in setf kconfig
 au FileType html,xhtml setlocal sw=4 ts=4
 " lua
 au FileType lua setlocal sw=4 sts=4 et
+" javascript
+au FileType javascript,qml setlocal sw=4 sts=4 et
 " perl
 au FileType perl setlocal sw=2 et
 " c options
