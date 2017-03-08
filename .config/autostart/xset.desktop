@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=xset r rate 200 70 +fp /home/rawoul/.fonts b off
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=xset
+Name=xset
+Comment[en_US]=
+Comment=

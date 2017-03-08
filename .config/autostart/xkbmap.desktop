@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=setxkbmap -option '' -option lv3:ralt_switch,nbsp:level3
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=xkbmap
+Name=xkbmap
+Comment[en_US]=
+Comment=
