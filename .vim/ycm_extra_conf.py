@@ -91,12 +91,10 @@ def FlagsForFile( filename, **kwargs ):
     final_flags = MakeRelativePathsInFlagsAbsolute(
       compilation_info.compiler_flags_,
       compilation_info.compiler_working_dir_ )
-    try:
-      final_flags.remove( '-MD' )
-      final_flags.remove( '-MF' )
-      final_flags.remove( '-Werror' )
-    except:
-        pass
+
+    flags_to_remove = [ '-Werror', '-m', '-M' ]
+    for flag in flags_to_remove:
+      final_flags = [x for x in final_flags if not x.startswith(flag)]
 
   else:
     relative_to = DirectoryOfThisScript()
