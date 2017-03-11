@@ -8,7 +8,7 @@ if exists("b:current_syntax")
 endif
 
 syn match	fbxbusStorageClass	/^\s*\(prefix\|include\|path\|struct\|union\|enum\|bitmask\|method\|signal\|property\|config\|target\|end\|exceptions\|const\)\>/
-syn match	fbxbusStatement		/^\s*\(desc\|in\|out\|arg\|mode\|default\|flags\)\>/
+syn match	fbxbusStatement		/^\s*\(desc\|in\|out\|arg\|mode\|default\|flags\|filter\)\>/
 syn match	fbxbusStatement		/^\s*-/
 syn region	fbxbusString		start=+"+ end=+"+
 syn match	fbxbusType		/:\s*\[*\s*[a-zA-Z_][a-zA-Z0-9_]*\(\s*(\s*[0-9][0-9]*\s*)\|\s*\[\s*[a-zA-Z0-9_][a-zA-Z0-9_]*\s*\]\)*\s*\]*/ms=s+1
