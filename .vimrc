@@ -65,6 +65,8 @@ set novisualbell
 set title
 " smoother changes
 set ttyfast
+" don't redraw during complex operations (e.g. macros)
+set lazyredraw
 " show status line when the window is split
 set laststatus=1
 " show insert, replace, none
@@ -75,8 +77,10 @@ set ruler
 set rulerformat=%55(%{strftime('%a\ %b\ %e\ %H:%M\')}\ %5l,%-6(%c%V%)\ %P%)
 " show matching brackets
 set showmatch
-" always display a line above the cursor
-set scrolloff=1
+" keep a context (rows) when scrolling vertically
+set scrolloff=5
+" keep a context (columns) when scrolling horizontally
+set sidescroll=5
 " completion
 "set wildmenu
 set wildmode=list:full
@@ -119,6 +123,8 @@ set autoindent
 " set smartindent
 set smartindent
 set cinoptions=g0,t0,Ws,m1,:0
+" make incrementing 007 result into 008 rather than 010
+set nrformats-=octal
 
 " SEARCH OPTIONS
 " higlight search
@@ -179,8 +185,17 @@ map <F12> :set ts=8<CR>:set sw=3<CR>:set sts=8<CR>:set noet<CR>:set cino=>5n-2f0
 nnoremap <TAB> i<TAB><Esc>
 " Y = y$ not yy.  More intuative
 noremap Y y$
+
+" Make j and k move by virtual lines instead of physical lines, but only when
+" not used in the count mode (e.g. 3j). This is great when 'wrap' and
+" 'relativenumber' are used.
+" Based on http://stackoverflow.com/a/21000307/2580955
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+
 " toggle paste
 set pastetoggle=<F9>
+
 " get rid of Windows ^M and blank end of lines
 "autocmd BufWrite * silent! ks|%s#\s*\r\?$##|'s
 
@@ -201,8 +216,8 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_always_populate_location_list = 1
 let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
 let g:ycm_enable_diagnostic_signs = 0
-let g:ycm_error_symbol = '✘✘'
-let g:ycm_warning_symbol = '✘✘'
+"let g:ycm_error_symbol = '✘✘'
+"let g:ycm_warning_symbol = '✘✘'
 "let g:ycm_key_list_select_completion = ['<Down>']
 "let g:ycm_key_list_previous_completion = ['<Up>']
 "let g:ycm_min_num_of_chars_for_completion = 99
