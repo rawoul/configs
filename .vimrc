@@ -5,6 +5,9 @@ set shortmess=fmxoOtTI
 " load bundles
 filetype off
 set rtp+=~/.vim/bundle/nofrils
+set rtp+=~/.vim/bundle/vim-repeat
+set rtp+=~/.vim/bundle/vim-commentary
+set rtp+=~/.vim/bundle/vim-surround
 set rtp+=~/.vim/bundle/fzf
 set rtp+=~/.vim/bundle/fzf.vim
 set rtp+=~/.vim/bundle/rust.vim
@@ -204,8 +207,6 @@ set pastetoggle=<F9>
 " PLUGINS SETTINGS
 " Taglist
 let Tlist_Show_One_File = 1
-" comments
-let g:EnhCommentifyRespectIndent = 'Y'
 " use CSS to convert text to html (using TOhtml command)
 let html_use_css = 1
 " load man plugin
