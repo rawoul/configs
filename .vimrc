@@ -4,7 +4,6 @@ set shortmess=fmxoOtTI
 
 " load bundles
 filetype off
-set rtp+=~/.vim/bundle/nofrils
 set rtp+=~/.vim/bundle/vim-repeat
 set rtp+=~/.vim/bundle/vim-commentary
 set rtp+=~/.vim/bundle/vim-surround
