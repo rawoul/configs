@@ -16,6 +16,20 @@ if which keychain > /dev/null; then
 fi
 
 ################################################################################
+## helpers
+###
+
+_has() {
+    whence $1 >/dev/null
+}
+
+_append_to_path() {
+    if [ -d $1 -a -z ${path[(r)$1]} ]; then
+	path=($1 $path);
+    fi
+}
+
+################################################################################
 ## environment
 ###
 
@@ -309,4 +323,15 @@ ${DEF} ${MCOLOR}[${WHITE}%D{%H:%M}${MCOLOR}]${DEF}"
 SPROMPT="zsh: correct ${YELLOW}%R$DEF to ${YELLOW}%r${DEF}%b ? ([${YELLOW}Y\
 ${DEF}]es/[${YELLOW}N${DEF}]o/[${YELLOW}E${DEF}]dit/[${YELLOW}A${DEF}]bort) "
 
-#sleep 0.5 && kill -SIGWINCH $$
+################################################################################
+## fzf
+###
+
+if [ -e ~/.vim/bundle/fzf ]; then
+    _append_to_path ~/.vim/bundle/fzf/bin
+    if _has fzf; then
+	source ~/.vim/bundle/fzf/shell/key-bindings.zsh
+	source ~/.vim/bundle/fzf/shell/completion.zsh
+	FZF_DEFAULT_OPTS="--reverse"
+    fi
+fi

@@ -5,6 +5,8 @@ set shortmess=fmxoOtTI
 " load bundles
 filetype off
 set rtp+=~/.vim/bundle/nofrils
+set rtp+=~/.vim/bundle/fzf
+set rtp+=~/.vim/bundle/fzf.vim
 set rtp+=~/.vim/bundle/rust.vim
 set rtp+=~/.vim/bundle/vim-qml
 set rtp+=~/.vim/bundle/YouCompleteMe
