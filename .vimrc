@@ -78,7 +78,7 @@ set showmode
 " location ruler
 set ruler
 " ruler format
-set rulerformat=%55(%{strftime('%a\ %b\ %e\ %H:%M\')}\ %5l,%-6(%c%V%)\ %P%)
+set rulerformat=%55(%{strftime('%H:%M\')}\ %5l,%-6(%c%V%)\ %P%)
 " show matching brackets
 set showmatch
 " keep a context (rows) when scrolling vertically
