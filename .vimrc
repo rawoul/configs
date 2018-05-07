@@ -32,7 +32,7 @@ set mouse=a
 " set syntax on
 syntax on
 " term options
-set termencoding=&encoding
+let &termencoding=&encoding
 colorscheme default
 set background=dark
 if &t_Co == 88
@@ -129,6 +129,10 @@ set smartindent
 set cinoptions=g0,t0,Ws,m1,:0
 " make incrementing 007 result into 008 rather than 010
 set nrformats-=octal
+" fix line joining
+if v:version > 703 || v:version == 703 && has('patch541')
+  set formatoptions+=j
+endif
 
 " SEARCH OPTIONS
 " higlight search
