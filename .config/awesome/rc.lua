@@ -68,8 +68,6 @@ modkey = "Mod4"
 awful.layout.layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
     awful.layout.suit.max,
@@ -181,7 +179,7 @@ mynet = lain.widget.net({
 })
 
 -- Create a wibox for each screen and add it
-local taglist_buttons = awful.util.table.join(
+local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
                     awful.button({ modkey }, 1, function(t)
                                               if client.focus then
@@ -198,7 +196,7 @@ local taglist_buttons = awful.util.table.join(
                     awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
                 )
 
-local tasklist_buttons = awful.util.table.join(
+local tasklist_buttons = gears.table.join(
                      awful.button({ }, 1, function (c)
                                               if c == client.focus then
                                                   c.minimized = true
@@ -254,7 +252,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(awful.util.table.join(
+    s.mylayoutbox:buttons(gears.table.join(
                            awful.button({ }, 1, function () awful.layout.inc( 1) end),
                            awful.button({ }, 3, function () awful.layout.inc(-1) end),
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
@@ -299,7 +297,7 @@ awful.screen.connect_for_each_screen(function(s)
 end)
 
 -- {{{ Mouse bindings
-root.buttons(awful.util.table.join(
+root.buttons(gears.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
@@ -307,7 +305,7 @@ root.buttons(awful.util.table.join(
 -- }}}
 
 -- {{{ Key bindings
-globalkeys = awful.util.table.join(
+globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -402,16 +400,34 @@ globalkeys = awful.util.table.join(
                   }
               end,
               {description = "lua execute prompt", group = "awesome"}),
-    -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"}),
 
     -- Screensaver
-    awful.key({ modkey }, "Pause", function () awful.spawn(screensaver) end,
+    awful.key({ modkey }, "p", function () awful.spawn(screensaver) end,
               {description = "lock the screen", group = "launcher"}),
 
     -- Drop down terminal
     awful.key({ modkey }, "grave", function () awful.screen.focused().myquake:toggle() end),
+
+   -- Volume Keys
+   awful.key({}, "XF86AudioLowerVolume", function ()
+     awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%", false)
+   end),
+   awful.key({}, "XF86AudioRaiseVolume", function ()
+     awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%", false)
+   end),
+   awful.key({}, "XF86AudioMute", function ()
+     awful.util.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle", false)
+   end),
+   -- Media Keys
+   awful.key({}, "XF86AudioPlay", function()
+     awful.util.spawn("playerctl play-pause", false)
+   end),
+   awful.key({}, "XF86AudioNext", function()
+     awful.util.spawn("playerctl next", false)
+   end),
+   awful.key({}, "XF86AudioPrev", function()
+     awful.util.spawn("playerctl previous", false)
+   end),
 
     -- Brightness
     awful.key({ }, "XF86MonBrightnessDown", function ()
@@ -420,7 +436,7 @@ globalkeys = awful.util.table.join(
         awful.spawn("xbacklight -inc 15") end)
 )
 
-clientkeys = awful.util.table.join(
+clientkeys = gears.table.join(
     awful.key({ modkey,           }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
@@ -453,10 +469,10 @@ clientkeys = awful.util.table.join(
 )
 
 -- Bind all key numbers to tags.
--- Be careful: we use keycodes to make it works on any keyboard layout.
+-- Be careful: we use keycodes to make it work on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
 for i = 1, 9 do
-    globalkeys = awful.util.table.join(globalkeys,
+    globalkeys = gears.table.join(globalkeys,
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
@@ -502,7 +518,7 @@ for i = 1, 9 do
     )
 end
 
-clientbuttons = awful.util.table.join(
+clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
     awful.button({ modkey }, 3, awful.mouse.client.resize))
@@ -520,6 +536,7 @@ awful.rules.rules = {
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      raise = true,
+                     titlebars_enable = false,
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
@@ -527,11 +544,20 @@ awful.rules.rules = {
      }
     },
 
+    -- Remove gaps for term
+    { rule_any = { class = { "URxvt" }
+      }, properties = { size_hints_honor = false }
+    },
+
     -- Floating clients.
     { rule_any = {
         class = {
           "gimp",
           "Gpick",
+          "mpv",
+          "ffplay",
+          "QtQmlViewer",
+          "GStreamer",
           "Vlc"
         },
         name = {
@@ -543,9 +569,10 @@ awful.rules.rules = {
         }
       }, properties = { floating = true }},
 
-    -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = false }
+    -- For dialogs add titlebar and respect size hints
+    { rule_any = {type = { "dialog" }
+      }, properties = { titlebars_enabled = true,
+                        size_hints_honor = true }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -572,7 +599,7 @@ end)
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", function(c)
     -- buttons for the titlebar
-    local buttons = awful.util.table.join(
+    local buttons = gears.table.join(
         awful.button({ }, 1, function()
             client.focus = c
             c:raise()

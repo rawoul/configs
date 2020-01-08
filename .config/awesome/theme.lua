@@ -4,7 +4,7 @@
 
 local theme = {}
 
-theme.font          = "Ubuntu Mono 10"
+theme.font          = "Iosevka Term 10"
 
 theme.bg_normal     = "#000000"
 theme.bg_focus      = "#304e70"
@@ -43,8 +43,8 @@ theme.taglist_squares_unsel = "/usr/share/awesome/themes/default/taglist/squarew
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = "/usr/share/awesome/themes/default/submenu.png"
-theme.menu_height = 40
-theme.menu_width  = 300
+theme.menu_height = 24
+theme.menu_width  = 250
 
 -- You can add as many variables as
 -- you wish and access them by using
