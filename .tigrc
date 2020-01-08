@@ -9,4 +9,4 @@ set reference-format = (branch) <tag> {remote}
 set main-view = \
     date \
     author:abbreviated,width=10 \
-    commit-title:width=40,graph=true,refs=true
+    commit-title,graph=true,refs=true

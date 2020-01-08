@@ -10,6 +10,10 @@
 [core]
 	editor = vim
 	autocrlf = input
+[pager]
+	branch = more
+[gui]
+	fontdiff = -family proggysquare -size 8 -weight normal -slant roman -underline 0 -overstrike 0
 [log]
 	date = local
 [alias]
@@ -29,7 +33,18 @@
 	stat = true
 [push]
 	default = tracking
+[pull]
+	rebase = true
 [sendemail]
-	smtpserver = smtp.free.fr
-[receive]
-	denyCurrentBranch = refuse
+	smtpEncryption = tls
+	smtpServer = smtp.gmail.com
+	smtpUser = rawoul@gmail.com
+	smtpServerPort = 587
+	#from = Arnaud Vrac <rawoul@gmail.com>
+	envelopeSender = rawoul@gmail.com
+	suppresscc = self
+[http]
+	cookiefile = /home/rawoul/.gitcookies
+	followRedirects = true
+[diff]
+	renameLimit = 5000
