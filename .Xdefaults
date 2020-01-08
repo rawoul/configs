@@ -49,7 +49,8 @@ Aterm.pointerColor:		white
 !URxvt.italicFont:		xft:monospace:size=8:italic
 !URxvt.boldItalicFont:		xft:monospace:size=8:bold:italic
 !URxvt.font:			-*-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1
-URxvt.font:			codingfonttobi1
+!URxvt.font:			codingfonttobi1
+URxvt.font:			xft:Iosevka Term:size=10:style=Medium
 URxvt.boldFont:
 URxvt.italicFont:
 URxvt.boldItalicFont:
