@@ -11,7 +11,8 @@ set rtp+=~/.vim/bundle/fzf
 set rtp+=~/.vim/bundle/fzf.vim
 set rtp+=~/.vim/bundle/rust.vim
 set rtp+=~/.vim/bundle/vim-qml
-set rtp+=~/.vim/bundle/YouCompleteMe
+"set rtp+=~/.vim/bundle/YouCompleteMe
+"set rtp+=~/.vim/bundle/vimwiki
 
 " allow to switch buffer without saving
 set hidden
@@ -46,15 +47,15 @@ if &t_Co == 88
     hi LineNr ctermfg=grey
     hi CursorLineNr ctermfg=white
 elseif &t_Co == 256
-    hi SpecialKey ctermfg=237
+    hi SpecialKey ctermfg=238
     hi Pmenu ctermbg=24 ctermfg=lightgray
     hi PmenuSel ctermbg=39 ctermfg=white
     hi DiffAdd ctermbg=24
     hi DiffDelete ctermbg=67 ctermfg=24
     hi DiffChange ctermbg=52
     hi DiffText ctermbg=88
-    hi CursorColumn ctermbg=235
-    hi CursorLine cterm=NONE ctermbg=235
+    hi CursorColumn ctermbg=236
+    hi CursorLine cterm=NONE ctermbg=236
     hi LineNr ctermfg=240
     hi CursorLineNr ctermfg=244
     hi ColorColumn ctermbg=234
@@ -96,12 +97,12 @@ set list listchars=tab:>-
 match Error /\s\+$/
 " show cursor position
 "set cursorcolumn
-set cursorline
+"set cursorline
 " show line numbers
-set number
-set relativenumber
+"set number
+"set relativenumber
 " highlight 80 columns limit
-set colorcolumn=80
+"set colorcolumn=80
 
 " EDITING OPTIONS
 " convert to another locale only if encoding is different
@@ -172,7 +173,6 @@ au FileType perl setlocal sw=2 et
 " c options
 augroup c
 	autocmd!
-	autocmd FileType c,cpp setlocal formatprg=indent
 	autocmd FileType cpp setlocal et ts=8 sw=4 sts=4
 	autocmd FileType c setlocal cinoptions+=(0
 	"autocmd FileType c,cpp setlocal cindent
@@ -221,6 +221,7 @@ runtime ftplugin/man.vim
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_always_populate_location_list = 1
 let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
+let g:ycm_extra_conf_globlist = ['~/work/*']
 let g:ycm_enable_diagnostic_signs = 0
 "let g:ycm_error_symbol = '✘✘'
 "let g:ycm_warning_symbol = '✘✘'
@@ -237,3 +238,8 @@ let g:lt_height = 10
 
 " load matchit plugin
 runtime macros/matchit.vim
+
+" Vim Wiki
+let wiki = {}
+let wiki.path_html = '/var/www/vimwiki'
+let wiki.nested_syntaxes = { 'python': 'python', 'c++': 'cpp', 'sh': 'sh' }
