@@ -38,7 +38,7 @@ _append_to_path() {
 
 ## pager
 export READNULLCMD=less
-export LESS="-q -R"
+export LESS="-q -R -S"
 #export LESSCHARSET=latin1
 export LESS_TERMCAP_mb=$'\E[01;34m'
 export LESS_TERMCAP_md=$'\E[01;34m'
@@ -54,7 +54,9 @@ export EDITOR="vim"
 export CVSEDITOR="vim"
 export VISUAL="gvim"
 
-export BROWSER="google-chrome"
+export BROWSER="firefox"
+
+export PATH="${HOME}/bin:$PATH"
 
 ################################################################################
 ## zsh options
@@ -112,8 +114,8 @@ setopt	NO_all_export		\
 
 ## history
 HISTFILE=${HOME}/.zhistory
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=5000
+SAVEHIST=5000
 
 ## directory stack
 DIRSTACKSIZE=10
@@ -131,7 +133,7 @@ autoload zmv
 ###
 
 ## disable globbing on some commands
-for com in alias expr find which zmv; do
+for com in alias expr which zmv; do
 	alias $com="noglob $com"
 done
 
@@ -331,7 +333,7 @@ if [ -e ~/.vim/bundle/fzf ]; then
     _append_to_path ~/.vim/bundle/fzf/bin
     if _has fzf; then
 	source ~/.vim/bundle/fzf/shell/key-bindings.zsh
-	source ~/.vim/bundle/fzf/shell/completion.zsh
+	[[ $- == *i* ]] && source ~/.vim/bundle/fzf/shell/completion.zsh
 	FZF_DEFAULT_OPTS="--reverse"
     fi
 fi
