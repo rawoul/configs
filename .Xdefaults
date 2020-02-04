@@ -82,6 +82,7 @@ URxvt.foreground:		gray85
 URxvt.colorBD:			#e8f1ff
 URxvt.colorUL:			#f0f1e8
 URxvt.print-pipe:
+URxvt.intensityStyles:		false
 
 !black
 *color0:			black
