@@ -99,7 +99,7 @@ input * {
     bindsym $mod+Shift+q kill
 
     # Start your launcher
-    bindsym $mod+d exec $menu
+    bindsym $mod+r exec $menu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -113,6 +113,16 @@ input * {
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+#
+# Media
+#
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioPlay exec playerctl play-pause
+    bindsym XF86AudioNext exec playerctl next
+    bindsym XF86AudioPrev exec playerctl previous
 #
 # Moving around:
 #
@@ -227,7 +237,7 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
+bindsym $mod+z mode "resize"
 
 #
 # Status Bar:
@@ -249,6 +259,7 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000 #0c0c0c
 
 for_window [app_id="gnome-(calendar|calculator|power-statistics|control-center)"] floating enable
 for_window [app_id="org.gnome.Weather"] floating enable
+for_window [app_id="nm-connection-editor"] floating enable
 for_window [app_id="(pavucontrol|psensor)"] floating enable
 for_window [app_id="mpv"] floating enable
 
