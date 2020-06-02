@@ -307,20 +307,21 @@ for color in BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
 done
 
 DEF='%f%b'
+BOLD='%f%B'
 MCOLOR=$BLUE
 
-local prompt_begin="${MCOLOR}[%(!.${RED}.${WHITE})%n${MCOLOR}@${WHITE}%m\
+local prompt_begin="${MCOLOR}[%(!.${RED}.${BOLD})%n${MCOLOR}@${BOLD}%m\
 ${MCOLOR}]${DEF}"
 
-PS1="$prompt_begin ${MCOLOR}[${WHITE}%20<...<%~%<<${MCOLOR}]${DEF} "
+PS1="$prompt_begin ${MCOLOR}[${BOLD}%20<...<%~%<<${MCOLOR}]${DEF} "
 
 PS2="$prompt_begin ${MCOLOR}%_>${DEF} "
 
 PS3="$prompt_begin ${MCOLOR}?>${DEF} "
 
-RPROMPT=" ${MCOLOR}[%(?.${GREEN}\\o/.${RED}\\o_${DEF} ${WHITE}%139(?,Seg \
+RPROMPT=" ${MCOLOR}[%(?.${GREEN}\\o/.${RED}\\o_${DEF} ${BOLD}%139(?,Seg \
 fault,%130(?,Interrupt,%138(?,Bus Error,%?)))${DEF} ${RED}_o/)${MCOLOR}]\
-${DEF} ${MCOLOR}[${WHITE}%D{%H:%M}${MCOLOR}]${DEF}"
+${DEF} ${MCOLOR}[${BOLD}%D{%H:%M}${MCOLOR}]${DEF}"
 
 SPROMPT="zsh: correct ${YELLOW}%R$DEF to ${YELLOW}%r${DEF}%b ? ([${YELLOW}Y\
 ${DEF}]es/[${YELLOW}N${DEF}]o/[${YELLOW}E${DEF}]dit/[${YELLOW}A${DEF}]bort) "
