@@ -157,6 +157,10 @@ alias mv='mv -i'
 alias mmv='zmv -W'
 alias mcp='zmv -C -W'
 
+if [[ $TERM = xterm-kitty ]]; then
+	alias icat='kitty +kitten icat'
+fi
+
 ## gentoo aliases
 if [[ -f /etc/gentoo-release ]]; then
 	alias em='emerge'
