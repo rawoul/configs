@@ -95,6 +95,9 @@ input * {
     # Lock screen
     bindsym $mod+p exec swaylock -f
 
+    # Suspend
+    bindsym $mod+Pause exec systemctl suspend
+
     # Kill focused window
     bindsym $mod+Shift+q kill
 
@@ -262,5 +265,10 @@ for_window [app_id="org.gnome.Weather"] floating enable
 for_window [app_id="nm-connection-editor"] floating enable
 for_window [app_id="(pavucontrol|psensor)"] floating enable
 for_window [app_id="mpv"] floating enable
+for_window [app_id="shadertoy"] floating enable
+for_window [app_id="firefox" title="Sharing Indicator"] {
+    floating enable
+    move position 10 200
+}
 
 include /etc/sway/config.d/*

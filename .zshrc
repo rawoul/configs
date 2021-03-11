@@ -56,7 +56,7 @@ export VISUAL="gvim"
 
 export BROWSER="firefox"
 
-export PATH="${HOME}/bin:$PATH"
+export PATH="${HOME}/bin:${HOME}/.local/bin:$PATH"
 
 ################################################################################
 ## zsh options
@@ -194,6 +194,12 @@ purge () {
 dos2unix()
 {
 	sed -i -e 's/\r$//' "$@"
+}
+
+## search on ddg
+ddg()
+{
+	w3m "https://duckduckgo.com/lite?kd=-1&q=$*"
 }
 
 ## print dir and job name in term title
