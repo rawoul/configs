@@ -85,7 +85,7 @@ exec nm-applet
 input * {
     xkb_layout us,us
     xkb_variant ,intl
-    xkb_options lv3:ralt_switch,nbsp:level3
+    xkb_options compose:ralt,compose:ralt
     xkb_numlock enabled
     repeat_delay 200
     repeat_rate 70
