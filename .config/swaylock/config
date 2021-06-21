@@ -27,3 +27,5 @@ separator-color=000000
 
 bs-hl-color=ff4040
 key-hl-color=4475b4
+
+show-failed-attempts
