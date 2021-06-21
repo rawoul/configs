@@ -20,6 +20,9 @@ set $term kitty
 # on the original workspace that the command was run on.
 set $menu wofi --drun -p "Run" | xargs swaymsg exec --
 
+# set env variables for xdg-desktop-portal-wlr
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
 font Iosevka SS02 Semibold 10
 
 ### Output configuration
