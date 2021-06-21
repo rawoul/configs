@@ -204,7 +204,7 @@ ddg()
 
 ## print dir and job name in term title
 case $TERM in
-	xterm*|rxvt*)
+	xterm*|rxvt*|foot)
 	precmd()  { print -Pn "\e]0;%n@%m: %~\a\r" }
 	preexec() { print -Pn "\e]0;%n@%m: $1\a\r" }
 	;;
