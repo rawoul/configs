@@ -20,9 +20,10 @@ set $term foot
 # on the original workspace that the command was run on.
 #set $menu wofi --show run -p "Run" | xargs swaymsg exec --
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu fullscreen disable, exec fuzzel --font='Iosevka SS02:size=14' -T foot -b 1a1a1aff -s 305a97ff -t ccccccff -m ffffffff -C 305a97c0 -B 20 -r 0 | xargs swaymsg exec --
 
-for_window [app_id="^launcher$"] floating enable, sticky enable, resize set 30 ppt 60 ppt, border pixel 10
-set $menu fullscreen disable, exec TERMINAL_COMMAND=foot foot -a launcher sway-launcher-desktop | xargs swaymsg exec --
+#for_window [app_id="^launcher$"] floating enable, sticky enable, resize set 30 ppt 60 ppt, border pixel 10
+#set $menu fullscreen disable, exec TERMINAL_COMMAND=foot foot -a launcher sway-launcher-desktop | xargs swaymsg exec --
 
 # set env variables for xdg-desktop-portal-wlr
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
