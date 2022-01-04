@@ -290,3 +290,4 @@ for_window [app_id="firefox" title="Sharing Indicator"] {
 }
 
 include /etc/sway/config.d/*
+include ~/.config/sway/local.conf
