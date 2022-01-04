@@ -142,6 +142,8 @@ input * {
     bindsym XF86MonBrightnessDown exec brightnessctl -n50 -e2 set '5%-' | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $SWAYSOCK.wob
     bindsym XF86MonBrightnessUp exec brightnessctl -n50 -e2 set '+5%' | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $SWAYSOCK.wob
 
+    bindsym --no-repeat $mod+q exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
 #
 # Moving around:
 #

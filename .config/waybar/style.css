@@ -77,6 +77,12 @@ window#waybar.hidden {
     border-top: 3px solid rgba(217, 216, 216, 0.5);
 }
 
+/*
+#pulseaudio:not(.source-muted) {
+    background-color: #ff0000;
+}
+*/
+
 #battery.warning {
    color:       rgba(255, 210, 4, 1);
 }
