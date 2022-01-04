@@ -153,7 +153,7 @@ set nobackup
 " load extensions
 filetype plugin indent on
 " for all text files set 'textwidth' to 80 characters.
-au FileType text,tex,mail setlocal textwidth=80
+au FileType text,tex setlocal textwidth=80
 " execute script when using :make
 au FileType sh setlocal makeprg=./$*
 " fbxbus
@@ -170,6 +170,8 @@ au FileType lua setlocal sw=4 sts=4 et
 au FileType javascript,qml setlocal sw=4 sts=4 et
 " perl
 au FileType perl setlocal sw=2 et
+" mail
+au FileType mail setlocal fo+=w textwidth=72
 " c options
 augroup c
 	autocmd!
