@@ -309,8 +309,6 @@ LISTPROMPT=''
 ## prompt
 ###
 
-setopt prompt_subst
-
 ## set colors
 for color in BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
 	eval $color='%B%F{${(L)color}}'
