@@ -14,28 +14,30 @@ p() {
 meson_build() {
     [ ! -f build/build.ninja ] && \
         LDFLAGS='-Wl,-rpath,/opt/sway/lib/x86_64-linux-gnu' \
-            meson.py setup build \
+            meson setup build \
             --buildtype=release --strip --prefix="$D" \
             -Dauto_features=disabled \
             -Dpkg_config_path="$D/lib/x86_64-linux-gnu/pkgconfig:$D/share/pkgconfig" \
             -Db_lto=true \
             "$@"
     ninja -C build
-    meson.py install -C build --only-changed
+    meson install -C build --only-changed
 }
 
-if [ ! -d /opt/sway ]; then
+if [ ! -e "$D" ]; then
     sudo mkdir -p "$D"
     sudo chown $USER:$USER "$D"
 fi
 
 p deb packages
 sudo apt install --no-install-recommends \
+    meson \
     libxcb-dri3-dev \
     libxcb-present-dev \
     libxcb-render0-dev \
     libxcb-render-util0-dev \
     libxcb-res0-dev \
+    libxcb-xinput-dev \
     libpipewire-0.3-dev \
     libinih-dev \
     libgtkmm-3.0-dev \
@@ -53,20 +55,13 @@ sudo apt install --no-install-recommends \
     libpng-dev \
     scdoc wob slurp grim
 
-p meson
-[ ! -d meson ] && git clone https://github.com/mesonbuild/meson.git
-cd meson
-git fetch origin
-git checkout 0.61.1
-cd - > /dev/null
-
 export PATH="$PWD/meson:$PATH"
 
 p wayland
 [ ! -d wayland ] && git clone https://gitlab.freedesktop.org/wayland/wayland.git
 cd wayland
 git fetch origin
-git checkout 1.20.0
+git checkout 1.21.0
 meson_build -Ddocumentation=false -Ddtd_validation=false -Dtests=false
 cd - > /dev/null
 
@@ -74,7 +69,7 @@ p wayland-protocols
 [ ! -d wayland-protocols ] && git clone https://gitlab.freedesktop.org/wayland/wayland-protocols.git
 cd wayland-protocols
 git fetch origin
-git checkout 1.25
+git checkout 1.26
 meson_build -Dtests=false
 cd - > /dev/null
 
@@ -82,7 +77,7 @@ p libdrm
 [ ! -d drm ] && git clone https://gitlab.freedesktop.org/mesa/drm.git
 cd drm
 git fetch origin
-git checkout libdrm-2.4.109
+git checkout libdrm-2.4.112
 meson_build -Dudev=true
 cd - > /dev/null
 
@@ -90,7 +85,7 @@ p libseat
 [ ! -d seatd ] && git clone https://git.sr.ht/~kennylevinsen/seatd
 cd seatd
 git fetch origin
-git checkout origin/master
+git checkout 0.7.0
 meson_build \
     -Dserver=disabled \
     -Dlibseat-seatd=disabled \
@@ -102,7 +97,7 @@ p wlroots
 [ ! -d wlroots ] && git clone https://gitlab.freedesktop.org/wlroots/wlroots.git
 cd wlroots
 git fetch origin
-git checkout 0.15.0
+git checkout 0.15.1
 meson_build \
     -Dbackends=drm,libinput,x11 \
     -Dexamples=false \
@@ -131,7 +126,7 @@ p mako
 [ ! -d mako ] && git clone https://github.com/emersion/mako.git
 cd mako
 git fetch origin
-git checkout aafbc91
+git checkout v1.7.1
 meson_build \
     -Dfish-completions=false \
     -Dzsh-completions=false \
@@ -144,7 +139,7 @@ p swaylock
 [ ! -d swaylock ] && git clone https://github.com/swaywm/swaylock.git
 cd swaylock
 git fetch origin
-git checkout 2f21738
+git checkout 1.6
 meson_build \
     -Dpam=enabled \
     -Dgdk-pixbuf=enabled \
@@ -172,7 +167,7 @@ p swaybg
 [ ! -d swaybg ] && git clone https://github.com/swaywm/swaybg.git
 cd swaybg
 git fetch origin
-git checkout v1.1
+git checkout v1.1.1
 meson_build \
     -Dman-pages=enabled \
     -Dgdk-pixbuf=enabled
@@ -182,7 +177,7 @@ p xdg-desktop-portal-wlr
 [ ! -d xdg-desktop-portal-wlr ] && git clone https://github.com/emersion/xdg-desktop-portal-wlr.git
 cd xdg-desktop-portal-wlr
 git fetch origin
-git checkout c34d098
+git checkout v0.6.0
 meson_build \
     -Dman-pages=enabled \
     -Dsd-bus-provider=libsystemd
@@ -192,7 +187,7 @@ p waybar
 [ ! -d Waybar ] && git clone https://github.com/Alexays/Waybar.git
 cd Waybar
 git fetch origin
-git checkout 0.9.9
+git checkout 0.9.13
 meson_build \
     -Ddbusmenu-gtk=enabled \
     -Dgtk-layer-shell=disabled \
@@ -211,14 +206,14 @@ cd wayvnc
 mkdir -p subprojects
 [ ! -d subprojects/neatvnc ] && git clone https://github.com/any1/neatvnc.git subprojects/neatvnc
 git -C subprojects/neatvnc fetch origin
-git -C subprojects/neatvnc checkout v0.4.0
+git -C subprojects/neatvnc checkout v0.5.1
 [ ! -d subprojects/aml ] && git clone https://github.com/any1/aml.git subprojects/aml
 git -C subprojects/aml fetch origin
-git -C subprojects/aml checkout v0.2.1
+git -C subprojects/aml checkout v0.2.2
 git fetch origin
-git checkout v0.4.1
+git checkout v0.5.0
 meson_build \
-    -Dman-pages=enabled \
+    -Dman-pages=disabled \
     -Dscreencopy-dmabuf=enabled \
     -Dpam=enabled \
     -Dneatvnc:jpeg=enabled
@@ -228,7 +223,7 @@ p foot
 [ ! -d foot ] && git clone https://codeberg.org/dnkl/foot.git
 cd foot
 git fetch origin
-git checkout 1eef5a00
+git checkout 1.12.1
 meson_build \
     -Ddocs=enabled \
     -Dthemes=true \
