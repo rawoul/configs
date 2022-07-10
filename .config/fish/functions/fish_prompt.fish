@@ -15,4 +15,5 @@ function fish_prompt
         echo -n (set_color $text_color)"$USER"(set_color $hi_color)'@'
     end
     echo -n (set_color $host_color)(prompt_hostname)(set_color $hi_color)' ❯ '(set_color $text_color)(prompt_pwd)(set_color $hi_color)' ❯❯ '
+    set_color normal
 end

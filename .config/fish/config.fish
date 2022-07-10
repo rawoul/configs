@@ -1,5 +1,5 @@
 # features
-set -U fish_features 3.0 3.1
+set -U fish_features 3.0 3.1 3.4
 set -g fish_greeting
 
 # ensure perms
@@ -56,13 +56,13 @@ if status --is-login
     set -U fish_color_quote bryellow
     set -U fish_color_redirection brmagenta
     set -U fish_color_search_match --background=203e60
-    set -U fish_color_selection 'white'  '--bold'  '--background=brblack'
+    set -U fish_color_selection white --bold --background=brblack
     set -U fish_color_user blue
     set -U fish_color_valid_path brwhite
     set -U fish_pager_color_completion normal
-    set -U fish_pager_color_description 'B3A06D'  'yellow'
-    set -U fish_pager_color_prefix 'normal'  '--bold'  '--underline'
-    set -U fish_pager_color_progress 'brblack'  '--background=222222'
+    set -U fish_pager_color_description b3a06d
+    set -U fish_pager_color_prefix --bold
+    set -U fish_pager_color_progress brblack --background=222222
 end
 
 # fzf
