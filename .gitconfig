@@ -10,6 +10,8 @@
 [core]
 	editor = vim
 	autocrlf = input
+	quotePath = false
+	commitGraph = true
 [pager]
 	branch = more
 [gui]
@@ -35,6 +37,7 @@
 	default = tracking
 [pull]
 	rebase = true
+	twohead = ort
 [sendemail]
 	smtpEncryption = tls
 	smtpServer = smtp.gmail.com
@@ -48,3 +51,7 @@
 	followRedirects = true
 [diff]
 	renameLimit = 5000
+[receive]
+	advertisePushOptions = true
+[gc]
+	writeCommitGraph = true
