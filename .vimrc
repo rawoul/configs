@@ -27,7 +27,7 @@ set uc=0
 
 " INPUT OPTIONS
 " use mouse
-set mouse=a
+set mouse=nv
 
 " DISPLAY OPTIONS
 " set syntax on
