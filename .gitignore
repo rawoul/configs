@@ -1,4 +1,5 @@
 *.pyc
 /.config/fish/fish_variables
 /.config/gtk-3.0/bookmarks
+/.config/nvim/plugin
 /.fonts/.uuid
