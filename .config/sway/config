@@ -295,6 +295,12 @@ for_window [app_id="firefox" title="Sharing Indicator"] {
     floating enable
     move position 10 200
 }
+for_window [app_id="firefox" title="Picture-in-Picture"] {
+    floating enable
+    sticky enable
+    border pixel
+    move position 10 90%
+}
 
 include /etc/sway/config.d/*
 include ~/.config/sway/config.d/*.conf
