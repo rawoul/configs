@@ -72,3 +72,8 @@ if [ -x ~/.vim/bundle/fzf/bin/fzf ]
     set -x FZF_DEFAULT_OPTS --reverse
     fzf_key_bindings
 end
+
+# prompt markers
+function mark_prompt_start --on-event fish_prompt
+    echo -en "\e]133;A\e\\"
+end
