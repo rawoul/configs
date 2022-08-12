@@ -110,7 +110,7 @@ return packer.startup(function()
 
     -- lsp
     use {
-        "williamboman/nvim-lsp-installer",
+        "williamboman/mason.nvim",
         "neovim/nvim-lspconfig",
     }
 

@@ -67,7 +67,7 @@ if pcall(vim.cmd, "colorscheme tokyobones") then
     vim.opt.termguicolors = true
 end
 
-local present, lsp_installer = pcall(require, "nvim-lsp-installer")
+local present, lsp_installer = pcall(require, "mason")
 if present then
     lsp_installer.setup()
 end
