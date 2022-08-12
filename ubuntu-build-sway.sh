@@ -11,9 +11,13 @@ p() {
     echo
 }
 
+meson_install() {
+    meson install -C build --only-changed
+}
+
 meson_build() {
     [ ! -f build/build.ninja ] && \
-        LDFLAGS='-Wl,-rpath,/opt/sway/lib/x86_64-linux-gnu' \
+        LDFLAGS="-Wl,-rpath,$D/lib/x86_64-linux-gnu" \
             meson setup build \
             --buildtype=release --strip --prefix="$D" \
             -Dauto_features=disabled \
@@ -21,7 +25,7 @@ meson_build() {
             -Db_lto=true \
             "$@"
     ninja -C build
-    meson install -C build --only-changed
+    meson_install
 }
 
 if [ ! -e "$D" ]; then
@@ -54,8 +58,6 @@ sudo apt install --no-install-recommends \
     libxkbcommon-dev \
     libpng-dev \
     scdoc wob slurp grim
-
-export PATH="$PWD/meson:$PATH"
 
 p wayland
 [ ! -d wayland ] && git clone https://gitlab.freedesktop.org/wayland/wayland.git
@@ -223,15 +225,31 @@ p foot
 [ ! -d foot ] && git clone https://codeberg.org/dnkl/foot.git
 cd foot
 git fetch origin
-git checkout 1.12.1
-meson_build \
+git checkout 1.13.0-3-ge249b52a
+if [ -d subprojects/fcft ]; then
+    git -C subprojects/fcft fetch origin
+    git -C subprojects/fcft checkout origin/master
+fi
+if [ -d subprojects/tllist ]; then
+    git -C subprojects/tllist fetch origin
+    git -C subprojects/tllist checkout origin/master
+fi
+PATH="$D/bin:$PATH" LDFLAGS='-Wl,-rpath,/opt/sway/lib/x86_64-linux-gnu' CC=gcc \
+./pgo/pgo.sh \
+    full-headless-sway . build \
+    --strip --prefix="$D" \
+    -Dauto_features=disabled \
+    -Dpkg_config_path="$D/lib/x86_64-linux-gnu/pkgconfig:$D/share/pkgconfig" \
     -Ddocs=enabled \
     -Dthemes=true \
     -Dime=true \
     -Dgrapheme-clustering=enabled \
     -Dterminfo=enabled \
+    -Dsystemd-units-dir="$D/lib/systemd/user" \
     -Dfcft:grapheme-shaping=enabled \
-    -Dfcft:run-shaping=enabled
+    -Dfcft:run-shaping=enabled \
+    -Dfcft:svg-backend=none
+meson_install
 install -t ~/.terminfo/f/ build/f/*
 cd - > /dev/null
 
