@@ -71,7 +71,7 @@ p wayland-protocols
 [ ! -d wayland-protocols ] && git clone https://gitlab.freedesktop.org/wayland/wayland-protocols.git
 cd wayland-protocols
 git fetch origin
-git checkout 1.26
+git checkout 1.27
 meson_build -Dtests=false
 cd - > /dev/null
 
@@ -79,7 +79,7 @@ p libdrm
 [ ! -d drm ] && git clone https://gitlab.freedesktop.org/mesa/drm.git
 cd drm
 git fetch origin
-git checkout libdrm-2.4.112
+git checkout libdrm-2.4.113
 meson_build -Dudev=true
 cd - > /dev/null
 
@@ -225,7 +225,7 @@ p foot
 [ ! -d foot ] && git clone https://codeberg.org/dnkl/foot.git
 cd foot
 git fetch origin
-git checkout 1.13.0-3-ge249b52a
+git checkout 1.13.1-79-g59c9dfe1
 if [ -d subprojects/fcft ]; then
     git -C subprojects/fcft fetch origin
     git -C subprojects/fcft checkout origin/master
@@ -257,7 +257,7 @@ p fuzzel
 [ ! -d fuzzel ] && git clone https://codeberg.org/dnkl/fuzzel.git
 cd fuzzel
 git fetch origin
-git checkout 1.7.0
+git checkout 1.8.0
 meson_build \
     -Dpng-backend=libpng \
     -Dsvg-backend=nanosvg
