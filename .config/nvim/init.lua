@@ -28,6 +28,11 @@ autocmd("FileType", {
 })
 
 autocmd("FileType", {
+    pattern = { "c" },
+    command = "setlocal sw=8 sts=0 noet cinoptions+=(0",
+})
+
+autocmd("FileType", {
     pattern = { "cpp", "lua", "javascript", "qmljs" },
     command = "setlocal sw=4 sts=4 et",
 })
@@ -61,7 +66,11 @@ vim.g.nordbones = { transparent_background = true, darkness = 'stark', lighten_n
 vim.g.neobones = { transparent_background = true, darkness = 'warm', lighten_non_text = 4 }
 vim.g.forestbones = { transparent_background = true, darkness = 'stark', lighten_non_text = 4 }
 vim.g.seoulbones = { transparent_background = true, darkness = 'warm', lighten_non_text = 4 }
-vim.g.tokyobones = { transparent_background = true, darkness = 'warm', lighten_non_text = 4 }
+vim.g.tokyobones = { transparent_background = true, solid_vert_split = true, solid_line_nr = true, darkness = 'warm', lighten_non_text = 4 }
+vim.g.tokyonight_style = "night"
+vim.g.tokyonight_italic_keywords = false
+vim.g.tokyonight_transparent = true
+vim.g.tokyonight_hide_inactive_statusline = true
 
 if pcall(vim.cmd, "colorscheme tokyobones") then
     vim.opt.termguicolors = true
@@ -111,10 +120,10 @@ if present then
         require("utils").load_mappings(mappings, bufopts)
     end
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    local capabilities
     local present, cmp_lsp = pcall(require, "cmp_nvim_lsp")
     if present then
-        capabilities = cmp_lsp.update_capabilities(capabilities)
+        capabilities = cmp_lsp.default_capabilities()
     end
 
     lspconfig["sumneko_lua"].setup {

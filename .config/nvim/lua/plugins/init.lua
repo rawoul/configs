@@ -121,6 +121,10 @@ return packer.startup(function()
     }
 
     use {
+        "folke/tokyonight.nvim"
+    }
+
+    use {
         "EdenEast/nightfox.nvim",
         config = function()
             require("nightfox").setup {
@@ -168,7 +172,7 @@ return packer.startup(function()
     -- status line
     use {
         "nvim-lualine/lualine.nvim",
-        requires = { "kyazdani42/nvim-web-devicons", opt = true },
+        requires = { "kyazdani42/nvim-web-devicons" },
         config = function()
             require("lualine").setup { }
         end
@@ -177,7 +181,7 @@ return packer.startup(function()
     -- files tree
     use {
         "kyazdani42/nvim-tree.lua",
-        requires = { "kyazdani42/nvim-web-devicons", opt = true },
+        requires = { "kyazdani42/nvim-web-devicons" },
         config = function()
             require("nvim-tree").setup {
                 git = {
@@ -210,7 +214,7 @@ return packer.startup(function()
     -- tab bar
     use {
         "romgrk/barbar.nvim",
-        requires = { "kyazdani42/nvim-web-devicons", opt = true },
+        requires = { "kyazdani42/nvim-web-devicons" },
         config = function()
             require("bufferline").setup { }
         end
@@ -220,7 +224,7 @@ return packer.startup(function()
     -- diags
     use {
         "folke/trouble.nvim",
-        requires = { "kyazdani42/nvim-web-devicons", opt = true },
+        requires = { "kyazdani42/nvim-web-devicons" },
         config = function()
             require("trouble").setup { }
         end
