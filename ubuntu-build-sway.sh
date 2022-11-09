@@ -44,8 +44,10 @@ sudo apt install --no-install-recommends \
     libxcb-xinput-dev \
     libpipewire-0.3-dev \
     libinih-dev \
+    libinput-dev \
     libgtkmm-3.0-dev \
     libdbusmenu-gtk3-dev \
+    libupower-glib-dev \
     libjsoncpp-dev \
     libnl-genl-3-dev \
     libxkbregistry-dev \
@@ -189,16 +191,18 @@ p waybar
 [ ! -d Waybar ] && git clone https://github.com/Alexays/Waybar.git
 cd Waybar
 git fetch origin
-git checkout 0.9.13
+git checkout 0.9.15
 meson_build \
     -Ddbusmenu-gtk=enabled \
     -Dgtk-layer-shell=disabled \
     -Dlibevdev=disabled \
+    -Dlibinput=enabled \
     -Dlibnl=enabled \
     -Dlibudev=enabled \
     -Dlogind=enabled \
     -Dman-pages=enabled \
     -Dpulseaudio=enabled \
+    -Dupower_glib=enabled \
     -Drfkill=enabled
 cd - > /dev/null
 

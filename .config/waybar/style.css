@@ -1,16 +1,13 @@
 * {
-    border: none;
-    border-radius: 0;
     font-family: Iosevka SS02 Medium, Roboto, Helvetica, Arial, sans-serif;
     font-size: 14px;
     min-height: 0;
+    color: #ffffff;
 }
 
 window#waybar {
+    border-top: 3px solid #292929;
     background-color: rgb(16, 16, 16);
-    color: rgb(217, 216, 216);
-    transition-property: background-color;
-    transition-duration: .5s;
 }
 
 window#waybar.hidden {
@@ -21,35 +18,48 @@ window#waybar.hidden {
     margin: 0 5px;
 }
 
-#workspaces button {
-    padding:    0 5px;
-    color:      rgba(217, 216, 216, 0.4);
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
 }
 
-#workspaces button.visible {
-    color:      rgba(217, 216, 216, 1);
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
 }
 
-#workspaces button.focused {
-    border-top: 3px solid rgba(217, 216, 216, 1);
-    border-bottom: 3px solid rgba(217, 216, 216, 0);
+button {
+    /* Avoid rounded borders under each button name */
+    border: none;
+    border-radius: 0;
+    border-top: 3px solid transparent;
+    padding: 0 5px;
 }
 
-#workspaces button.urgent {
-    color:      rgba(238, 46, 36, 1);
-}
-
-#workspaces button:hover {
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+button:hover {
+    background: inherit;
     box-shadow: inherit;
-    border-bottom: 3px solid #ffffff;
+    text-shadow: inherit;
+    border-top: 3px solid rgb(255, 0, 0);
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#scratchpad {
+    border-top: 3px solid rgb(255, 0, 0);
 }
 
 #workspaces button.focused {
-    border-bottom: 3px solid #ffffff;
+    border-top: 3px solid rgb(217, 216, 216);
 }
 
 #workspaces button.urgent {
+    color: rgba(238, 46, 36, 1);
     background-color: #eb4d4b;
+}
+
+#mode {
+    border-top: 3px solid rgb(255, 0, 0);
 }
 
 @keyframes blink {
@@ -71,10 +81,9 @@ window#waybar.hidden {
 #idle_inhibitor,
 #backlight,
 #custom-weather,
+#scratchpad,
 #custom-media {
-    margin:     0px 0px 0px 10px;
-    padding: 0 5px;
-    border-top: 3px solid rgba(217, 216, 216, 0.5);
+    margin: 0px 5px;
 }
 
 /*
@@ -84,21 +93,21 @@ window#waybar.hidden {
 */
 
 #battery.warning {
-   color:       rgba(255, 210, 4, 1);
+   color: rgba(255, 210, 4, 1);
 }
 
 #battery.critical {
-    color:      rgba(238, 46, 36, 1);
+    color: rgba(238, 46, 36, 1);
 }
 
 #battery.charging {
-    color:      rgba(217, 216, 216, 1);
+    color: rgba(217, 216, 216, 1);
 }
 
 #custom-storage.warning {
-    color:      rgba(255, 210, 4, 1);
+    color: rgba(255, 210, 4, 1);
 }
 
 #custom-storage.critical {
-    color:      rgba(238, 46, 36, 1);
+    color: rgba(238, 46, 36, 1);
 }

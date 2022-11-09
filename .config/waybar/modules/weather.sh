@@ -13,7 +13,7 @@ fi
 
 cacheage=$(($(date +%s) - $(stat -c '%Y' "$cachedir/$cachefile")))
 if [ $cacheage -gt 1740 ] || [ ! -s $cachedir/$cachefile ]; then
-    data=$(curl -s https://fr.wttr.in?format=1 2>&1)
+    data=$(curl -s https://fr.wttr.in?format="%c%t" 2>&1)
     echo "$data" > "$cachedir/$cachefile"
 else
     data=$(cat $cachedir/$cachefile)
