@@ -229,7 +229,7 @@ p foot
 [ ! -d foot ] && git clone https://codeberg.org/dnkl/foot.git
 cd foot
 git fetch origin
-git checkout 1.13.1-79-g59c9dfe1
+git checkout 1.13.1-85-gfa9beae3
 if [ -d subprojects/fcft ]; then
     git -C subprojects/fcft fetch origin
     git -C subprojects/fcft checkout origin/master
@@ -261,7 +261,7 @@ p fuzzel
 [ ! -d fuzzel ] && git clone https://codeberg.org/dnkl/fuzzel.git
 cd fuzzel
 git fetch origin
-git checkout 1.8.0
+git checkout 1.8.2
 meson_build \
     -Dpng-backend=libpng \
     -Dsvg-backend=nanosvg
