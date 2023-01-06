@@ -36,6 +36,9 @@ fi
 p deb packages
 sudo apt install --no-install-recommends \
     meson \
+    libevdev-dev \
+    libmtdev-dev \
+    libudev-dev \
     libxcb-dri3-dev \
     libxcb-present-dev \
     libxcb-render0-dev \
@@ -44,7 +47,6 @@ sudo apt install --no-install-recommends \
     libxcb-xinput-dev \
     libpipewire-0.3-dev \
     libinih-dev \
-    libinput-dev \
     libgtkmm-3.0-dev \
     libdbusmenu-gtk3-dev \
     libupower-glib-dev \
@@ -59,7 +61,17 @@ sudo apt install --no-install-recommends \
     libutf8proc-dev \
     libxkbcommon-dev \
     libpng-dev \
-    scdoc wob slurp grim
+    hwdata \
+    libfreeimage-dev \
+    libturbojpeg0-dev \
+    libpng-dev \
+    libheif-dev \
+    librsvg2-dev \
+    libicu-dev \
+    libinih-dev \
+    libpango1.0-dev \
+    libwayland-dev \
+    scdoc wob slurp grim \
 
 p wayland
 [ ! -d wayland ] && git clone https://gitlab.freedesktop.org/wayland/wayland.git
@@ -73,7 +85,7 @@ p wayland-protocols
 [ ! -d wayland-protocols ] && git clone https://gitlab.freedesktop.org/wayland/wayland-protocols.git
 cd wayland-protocols
 git fetch origin
-git checkout 1.27
+git checkout 1.31
 meson_build -Dtests=false
 cd - > /dev/null
 
@@ -81,7 +93,7 @@ p libdrm
 [ ! -d drm ] && git clone https://gitlab.freedesktop.org/mesa/drm.git
 cd drm
 git fetch origin
-git checkout libdrm-2.4.113
+git checkout libdrm-2.4.114
 meson_build -Dudev=true
 cd - > /dev/null
 
@@ -97,12 +109,23 @@ meson_build \
     -Dlibseat-builtin=disabled
 cd - > /dev/null
 
+p libinput
+[ ! -d libinput ] && git clone https://gitlab.freedesktop.org/libinput/libinput.git
+cd libinput
+git fetch origin
+git checkout 1.22.0
+meson_build \
+    -Ddebug-gui=false \
+    -Dtests=false
+cd - > /dev/null
+
 p wlroots
 [ ! -d wlroots ] && git clone https://gitlab.freedesktop.org/wlroots/wlroots.git
 cd wlroots
 git fetch origin
-git checkout 0.15.1
+git checkout 0.16.1
 meson_build \
+    -Dallocators=gbm \
     -Dbackends=drm,libinput,x11 \
     -Dexamples=false \
     -Drenderers=gles2 \
@@ -114,11 +137,11 @@ p sway
 [ ! -d sway ] && git clone https://github.com/swaywm/sway.git
 cd sway
 git fetch origin
-git checkout 1.7
+git checkout 1.8
 meson_build \
     -Dbash-completions=false \
-    -Dfish-completions=true \
-    -Dzsh-completions=true \
+    -Dfish-completions=false \
+    -Dzsh-completions=false \
     -Dgdk-pixbuf=enabled \
     -Dman-pages=enabled \
     -Dtray=enabled \
@@ -143,35 +166,35 @@ p swaylock
 [ ! -d swaylock ] && git clone https://github.com/swaywm/swaylock.git
 cd swaylock
 git fetch origin
-git checkout 1.6
+git checkout 1.7
 meson_build \
     -Dpam=enabled \
     -Dgdk-pixbuf=enabled \
     -Dman-pages=enabled \
-    -Dzsh-completions=true \
+    -Dzsh-completions=false \
     -Dbash-completions=false \
-    -Dfish-completions=true
+    -Dfish-completions=false
 cd - > /dev/null
 
 p swayidle
 [ ! -d swayidle ] && git clone https://github.com/swaywm/swayidle.git
 cd swayidle
 git fetch origin
-git checkout 1.7.1
+git checkout 1.8.0
 meson_build \
     -Dlogind=enabled \
     -Dlogind-provider=systemd \
     -Dman-pages=enabled \
-    -Dzsh-completions=true \
+    -Dzsh-completions=false \
     -Dbash-completions=false \
-    -Dfish-completions=true
+    -Dfish-completions=false
 cd - > /dev/null
 
 p swaybg
 [ ! -d swaybg ] && git clone https://github.com/swaywm/swaybg.git
 cd swaybg
 git fetch origin
-git checkout v1.1.1
+git checkout v1.2.0
 meson_build \
     -Dman-pages=enabled \
     -Dgdk-pixbuf=enabled
@@ -191,7 +214,7 @@ p waybar
 [ ! -d Waybar ] && git clone https://github.com/Alexays/Waybar.git
 cd Waybar
 git fetch origin
-git checkout 0.9.15
+git checkout 0.9.16
 meson_build \
     -Ddbusmenu-gtk=enabled \
     -Dgtk-layer-shell=disabled \
@@ -200,7 +223,6 @@ meson_build \
     -Dlibnl=enabled \
     -Dlibudev=enabled \
     -Dlogind=enabled \
-    -Dman-pages=enabled \
     -Dpulseaudio=enabled \
     -Dupower_glib=enabled \
     -Drfkill=enabled
@@ -212,7 +234,7 @@ cd wayvnc
 mkdir -p subprojects
 [ ! -d subprojects/neatvnc ] && git clone https://github.com/any1/neatvnc.git subprojects/neatvnc
 git -C subprojects/neatvnc fetch origin
-git -C subprojects/neatvnc checkout v0.5.1
+git -C subprojects/neatvnc checkout v0.5.4
 [ ! -d subprojects/aml ] && git clone https://github.com/any1/aml.git subprojects/aml
 git -C subprojects/aml fetch origin
 git -C subprojects/aml checkout v0.2.2
@@ -229,7 +251,7 @@ p foot
 [ ! -d foot ] && git clone https://codeberg.org/dnkl/foot.git
 cd foot
 git fetch origin
-git checkout 1.13.1-85-gfa9beae3
+git checkout 1.13.1-116-g9e4270cd
 if [ -d subprojects/fcft ]; then
     git -C subprojects/fcft fetch origin
     git -C subprojects/fcft checkout origin/master
@@ -265,6 +287,25 @@ git checkout 1.8.2
 meson_build \
     -Dpng-backend=libpng \
     -Dsvg-backend=nanosvg
+cd - > /dev/null
+
+p imv
+[ ! -d imv ] && git clone https://git.sr.ht/~exec64/imv
+cd imv
+git fetch origin
+git checkout v4.3.0-18-g4448fb6
+meson_build \
+    -Dwindows=wayland \
+    -Dunicode=icu \
+    -Dcontrib-commands=false \
+    -Dfreeimage=enabled \
+    -Dlibtiff=disabled \
+    -Dlibpng=enabled \
+    -Dlibjpeg=enabled \
+    -Dlibrsvg=enabled \
+    -Dlibnsgif=disabled \
+    -Dlibheif=enabled
+
 cd - > /dev/null
 
 p override dbus-1 services
