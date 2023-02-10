@@ -45,7 +45,9 @@ sudo apt install --no-install-recommends \
     libxcb-render-util0-dev \
     libxcb-res0-dev \
     libxcb-xinput-dev \
+    libplayerctl-dev \
     libpipewire-0.3-dev \
+    libwireplumber-0.4-dev \
     libinih-dev \
     libgtkmm-3.0-dev \
     libdbusmenu-gtk3-dev \
@@ -57,6 +59,7 @@ sudo apt install --no-install-recommends \
     libfontconfig-dev \
     libfreetype-dev \
     libharfbuzz-dev \
+    libjansson-dev \
     libpixman-1-dev \
     libutf8proc-dev \
     libxkbcommon-dev \
@@ -94,7 +97,7 @@ p libdrm
 cd drm
 git fetch origin
 git checkout libdrm-2.4.114
-meson_build -Dudev=true
+meson_build -Dudev=true -Damdgpu=enabled -Dtests=true
 cd - > /dev/null
 
 p libseat
@@ -214,7 +217,7 @@ p waybar
 [ ! -d Waybar ] && git clone https://github.com/Alexays/Waybar.git
 cd Waybar
 git fetch origin
-git checkout 0.9.16
+git checkout 0.9.17
 meson_build \
     -Ddbusmenu-gtk=enabled \
     -Dgtk-layer-shell=disabled \
@@ -223,8 +226,10 @@ meson_build \
     -Dlibnl=enabled \
     -Dlibudev=enabled \
     -Dlogind=enabled \
-    -Dpulseaudio=enabled \
     -Dupower_glib=enabled \
+    -Dpulseaudio=enabled \
+    -Dwireplumber=enabled \
+    -Dmpris=enabled \
     -Drfkill=enabled
 cd - > /dev/null
 
@@ -234,12 +239,12 @@ cd wayvnc
 mkdir -p subprojects
 [ ! -d subprojects/neatvnc ] && git clone https://github.com/any1/neatvnc.git subprojects/neatvnc
 git -C subprojects/neatvnc fetch origin
-git -C subprojects/neatvnc checkout v0.5.4
+git -C subprojects/neatvnc checkout v0.6.0
 [ ! -d subprojects/aml ] && git clone https://github.com/any1/aml.git subprojects/aml
 git -C subprojects/aml fetch origin
-git -C subprojects/aml checkout v0.2.2
+git -C subprojects/aml checkout v0.3.0
 git fetch origin
-git checkout v0.5.0
+git checkout v0.6.2
 meson_build \
     -Dman-pages=disabled \
     -Dscreencopy-dmabuf=enabled \
@@ -251,7 +256,7 @@ p foot
 [ ! -d foot ] && git clone https://codeberg.org/dnkl/foot.git
 cd foot
 git fetch origin
-git checkout 1.13.1-116-g9e4270cd
+git checkout 1.13.1-134-g1823fa84
 if [ -d subprojects/fcft ]; then
     git -C subprojects/fcft fetch origin
     git -C subprojects/fcft checkout origin/master
