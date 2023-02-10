@@ -29,7 +29,7 @@ function fish_right_prompt
     set -l branch_detached 0
     if not set -l branch (command git --no-optional-locks symbolic-ref --short HEAD 2>/dev/null)
         set branch_detached 1
-        set branch (command git --no-optional-locks describe --all HEAD 2>/dev/null)
+        set branch (command git --no-optional-locks describe --tags HEAD 2>/dev/null)
     end
 
     # Get the commit difference counts between local and remote.
