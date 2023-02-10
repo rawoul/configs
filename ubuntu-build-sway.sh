@@ -116,7 +116,7 @@ p libinput
 [ ! -d libinput ] && git clone https://gitlab.freedesktop.org/libinput/libinput.git
 cd libinput
 git fetch origin
-git checkout 1.22.0
+git checkout 1.22.1
 meson_build \
     -Ddebug-gui=false \
     -Dtests=false
@@ -126,7 +126,7 @@ p wlroots
 [ ! -d wlroots ] && git clone https://gitlab.freedesktop.org/wlroots/wlroots.git
 cd wlroots
 git fetch origin
-git checkout 0.16.1
+git checkout 419e55ff
 meson_build \
     -Dallocators=gbm \
     -Dbackends=drm,libinput,x11 \
@@ -140,7 +140,7 @@ p sway
 [ ! -d sway ] && git clone https://github.com/swaywm/sway.git
 cd sway
 git fetch origin
-git checkout 1.8
+git checkout 2921b232be62d2a5467ca7fe05ded5eeb3c3d6af
 meson_build \
     -Dbash-completions=false \
     -Dfish-completions=false \
@@ -169,7 +169,7 @@ p swaylock
 [ ! -d swaylock ] && git clone https://github.com/swaywm/swaylock.git
 cd swaylock
 git fetch origin
-git checkout 1.7
+git checkout v1.7.2
 meson_build \
     -Dpam=enabled \
     -Dgdk-pixbuf=enabled \
@@ -191,6 +191,15 @@ meson_build \
     -Dzsh-completions=false \
     -Dbash-completions=false \
     -Dfish-completions=false
+cd - > /dev/null
+
+p chayang
+[ ! -d chayang ] && git clone https://git.sr.ht/~emersion/chayang
+cd chayang
+git fetch origin
+git checkout 61ad53b0
+meson_build
+
 cd - > /dev/null
 
 p swaybg
@@ -298,7 +307,7 @@ p imv
 [ ! -d imv ] && git clone https://git.sr.ht/~exec64/imv
 cd imv
 git fetch origin
-git checkout v4.3.0-18-g4448fb6
+git checkout v4.4.0
 meson_build \
     -Dwindows=wayland \
     -Dunicode=icu \
