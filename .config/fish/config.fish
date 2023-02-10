@@ -66,12 +66,12 @@ if status --is-login
 end
 
 # fzf
-if [ -x ~/.vim/bundle/fzf/bin/fzf ]
-    fish_add_path ~/.vim/bundle/fzf/bin
-    source ~/.vim/bundle/fzf/shell/key-bindings.fish
-    set -x FZF_DEFAULT_OPTS --reverse
-    fzf_key_bindings
-end
+#if [ -x ~/.vim/bundle/fzf/bin/fzf ]
+#    fish_add_path ~/.vim/bundle/fzf/bin
+#    source ~/.vim/bundle/fzf/shell/key-bindings.fish
+#    set -x FZF_DEFAULT_OPTS --reverse
+#    fzf_key_bindings
+#end
 
 # prompt markers
 function mark_prompt_start --on-event fish_prompt
