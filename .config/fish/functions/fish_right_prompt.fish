@@ -32,14 +32,6 @@ function fish_right_prompt
         set branch (command git --no-optional-locks describe --tags HEAD 2>/dev/null)
     end
 
-    # Get the commit difference counts between local and remote.
-    command git --no-optional-locks rev-list --count --left-right 'HEAD...@{upstream}' 2>/dev/null \
-        | read -d \t -l status_ahead status_behind
-    if test $status -ne 0
-        set status_ahead 0
-        set status_behind 0
-    end
-
     # Get the stash status.
     # (git stash list) is very slow. => Avoid using it.
     set -l status_stashed 0
@@ -68,12 +60,6 @@ function fish_right_prompt
     if test -n "$action"
         set_color normal
         echo -n (set_color white)':'(set_color -o brred)"$action"
-    end
-    if test $status_ahead -ne 0
-        echo -n ' '(set_color brmagenta)'⬆'
-    end
-    if test $status_behind -ne 0
-        echo -n ' '(set_color brmagenta)'⬇'
     end
     if test $status_stashed -ne 0
         echo -n ' '(set_color cyan)'⊙'
