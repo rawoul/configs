@@ -121,7 +121,16 @@ return packer.startup(function()
     }
 
     use {
-        "folke/tokyonight.nvim"
+        "folke/tokyonight.nvim",
+        config = function()
+            require("tokyonight").setup {
+                transparent = true,
+                on_highlights = function(hl, c)
+                    hl["@field"] = { fg = c.fg }
+                    hl["@property"] = { fg = c.fg }
+                end,
+            }
+        end
     }
 
     use {
@@ -230,17 +239,18 @@ return packer.startup(function()
         end
     }
 
+    --[[
     -- indentation
     use {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
-            require("indent_blankline").setup {
-                show_current_context = true,
+            require("ibl").setup {
                 max_indent_increase = 1,
                 filetype = { "python" },
             }
         end
     }
+    ]]--
 
     -- note taking
     use {
@@ -253,5 +263,14 @@ return packer.startup(function()
                 },
             }
         end
+    }
+
+    -- aerial
+    use {
+      "stevearc/aerial.nvim",
+      requires = { "kyazdani42/nvim-web-devicons" },
+      config = function()
+          require('aerial').setup()
+      end
     }
 end)
