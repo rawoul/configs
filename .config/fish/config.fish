@@ -34,6 +34,7 @@ if status --is-interactive
         function aptr; apt remove --purge $argv; end
         function apti; apt install --no-install-recommends $argv; end
     end
+    fish_set_lscolors
 end
 
 # colors
