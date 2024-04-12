@@ -71,7 +71,7 @@ exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 
 ### Network
 
-exec nm-applet
+exec nm-applet --indicator
 
 ### Input configuration
 #
@@ -88,9 +88,9 @@ exec nm-applet
 # Read `man 5 sway-input` for more information about this section.
 
 input * {
-    xkb_layout us,us
-    xkb_variant ,intl
-    xkb_options compose:ralt,compose:ralt
+    xkb_layout us,us,fr
+    xkb_variant ,intl,
+    xkb_options compose:ralt,compose:ralt,none
     xkb_numlock enabled
     repeat_delay 200
     repeat_rate 70
@@ -218,6 +218,9 @@ input * {
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
+
+    # Switch to next keyboard layout
+    bindsym $mod+i input '*' xkb_switch_layout next
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
