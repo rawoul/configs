@@ -6,11 +6,11 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad", "mpris"],
     //"modules-center": ["sway/window"],
-    "modules-right": ["idle_inhibitor", "custom/weather", "pulseaudio", "network", "cpu", "memory", "temperature#cpu", "temperature#gpu", "backlight", "battery", "battery#bat2", "clock", "tray"],
+    "modules-right": ["idle_inhibitor", "custom/weather", "pulseaudio", "network", "cpu", "memory", "temperature#cpu", "temperature#gpu", "sway/language", "backlight", "battery", "battery#bat2", "clock", "tray"],
     // Modules configuration
     "sway/workspaces": {
         "disable-scroll": true,
-        "all-outputs": true,
+        "all-outputs": false,
         "format": "{name}: {icon}",
         "format-icons": {
             "1": "",
@@ -55,6 +55,10 @@
         },
         "tooltip-format": "MPD (connected)",
         "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "sway/language": {
+        "format": " {short} {variant}",
+        "on-click": "swaymsg input type:keyboard xkb_switch_layout next",
     },
     "idle_inhibitor": {
         "tooltip": false,
@@ -159,7 +163,6 @@
         "tooltip": false,
         "interval": 1800,
         "exec": "~/.config/waybar/modules/weather.sh",
-        // "on-click": "terminator -p Small -e 'bash -c \"curl -s https://en.wttr.in; read line\"'"
         "on-click": "gnome-weather"
     }
 }
