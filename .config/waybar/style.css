@@ -1,13 +1,17 @@
 * {
-    font-family: Iosevka SS02 Medium, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 14px;
     min-height: 0;
-    color: #ffffff;
 }
 
 window#waybar {
+    font-family: Iosevka SS02 Medium, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
     border-top: 3px solid #292929;
     background-color: rgb(16, 16, 16);
+    color: #ffffff;
+}
+
+box.module button {
+    color: #ffffff;
 }
 
 window#waybar.hidden {
@@ -112,4 +116,9 @@ button:hover {
 
 #custom-storage.critical {
     color: rgba(238, 46, 36, 1);
+}
+
+#tray {
+    font-family: sans-serif;
+    font-size: 10pt;
 }
