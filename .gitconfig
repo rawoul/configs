@@ -31,8 +31,11 @@
 	autoupdate = true
 [merge]
 	tool = vimdiff
+	conflictstyle = zdiff3
 [rebase]
 	stat = true
+	autostash = true
+	updateRefs = true
 [push]
 	default = tracking
 [pull]
@@ -50,8 +53,20 @@
 	cookiefile = /home/rawoul/.gitcookies
 	followRedirects = true
 [diff]
+	renames = true
 	renameLimit = 5000
+	colorMoved = true
+	algorithm = histogram
+	mnemonicPrefix = true
+[grep]
+	patternType = perl
+[branch]
+	sort = committerdate
 [receive]
 	advertisePushOptions = true
 [gc]
 	writeCommitGraph = true
+[commit]
+	verbose = true
+[tag]
+	sort = version:refname
