@@ -26,14 +26,12 @@ if status --is-interactive
     alias cp "cp -i"
     alias mv "mv -i"
     alias l "ls -1"
-    function ddg
-        $BROWSER "https://duckduckgo.com?k1=-1&kp=-2&kd=-1&q="(string escape --style=url "$argv")
-    end
     if [ -f /etc/debian_version ]
         function apts; apt-cache search "$argv" | grep -i "$argv"; end
         function aptr; apt remove --purge $argv; end
         function apti; apt install --no-install-recommends $argv; end
     end
+    set -gx GPG_TTY $(tty)
     fish_set_lscolors
 end
 

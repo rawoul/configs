@@ -6,7 +6,7 @@ function fish_prompt
     end
 
     set -l host_color $text_color
-    if test -n "$SSH_TTY"
+    if test -n "$SSH_CONNECTION"
         set host_color yellow
     end
 
