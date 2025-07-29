@@ -180,7 +180,13 @@ return packer.startup(function()
         "nvim-lualine/lualine.nvim",
         requires = { "kyazdani42/nvim-web-devicons" },
         config = function()
-            require("lualine").setup { }
+            require("lualine").setup {
+              sections = {
+                lualine_z = {
+                  { '%3l:%-2.v', type = 'stl' },
+                },
+              },
+            }
         end
     }
 
