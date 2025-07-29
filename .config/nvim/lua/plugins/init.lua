@@ -150,23 +150,20 @@ return packer.startup(function()
         requires = { { "nvim-lua/plenary.nvim" } },
         config = function()
             require("telescope").setup { }
-            local mappings = {
-                n = {
-                    -- find
-                    ["<leader>tf"] = { "<cmd> Telescope find_files <CR>", "  find files" },
-                    ["<leader>ta"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "  find all" },
-                    ["<leader>tg"] = { "<cmd> Telescope live_grep <CR>", "   live grep" },
-                    ["<leader>tb"] = { "<cmd> Telescope buffers <CR>", "  find buffers" },
-                    ["<leader>th"] = { "<cmd> Telescope help_tags <CR>", "  help page" },
-                    ["<leader>to"] = { "<cmd> Telescope oldfiles <CR>", "   find oldfiles" },
-                    ["<leader>tk"] = { "<cmd> Telescope keymaps <CR>", "   show keys" },
-                    ["<leader>tc"] = { "<cmd> Telescope colorscheme <CR>", "   show keys" },
-                    -- git
-                    ["<leader>gc"] = { "<cmd> Telescope git_commits <CR>", "   git commits" },
-                    ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "  git status" },
-                },
-            }
-            require("utils").load_mappings(mappings)
+            require("which-key").add({
+                -- find
+                { "<leader>tf", "<cmd> Telescope find_files <CR>", desc = "  find files" },
+                { "<leader>ta", "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", desc = "  find all" },
+                { "<leader>tg", "<cmd> Telescope live_grep <CR>", desc = "   live grep" },
+                { "<leader>tb", "<cmd> Telescope buffers <CR>", desc = "  find buffers" },
+                { "<leader>th", "<cmd> Telescope help_tags <CR>", desc = "  help page" },
+                { "<leader>to", "<cmd> Telescope oldfiles <CR>", desc = "   find oldfiles" },
+                { "<leader>tk", "<cmd> Telescope keymaps <CR>", desc = "   show keys" },
+                { "<leader>tc", "<cmd> Telescope colorscheme <CR>", desc = "   show keys" },
+                -- git
+                { "<leader>gc", "<cmd> Telescope git_commits <CR>", desc = "   git commits" },
+                { "<leader>gt", "<cmd> Telescope git_status <CR>", desc = "  git status" },
+            })
         end
     }
 
@@ -207,15 +204,12 @@ return packer.startup(function()
                     },
                 },
             }
-            local mappings = {
-                n = {
-                    -- toggle
-                    ["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "   toggle nvimtree" },
-                    -- focus
-                    ["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "   focus nvimtree" },
-                },
-            }
-            require("utils").load_mappings(mappings)
+            require("which-key").add({
+                -- toggle
+                { "<C-n>", "<cmd> NvimTreeToggle <CR>", desc = "   toggle nvimtree" },
+                -- focus
+                { "<leader>e", "<cmd> NvimTreeFocus <CR>", desc = "   focus nvimtree" },
+            })
         end
     }
 

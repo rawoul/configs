@@ -91,33 +91,30 @@ if present then
         -- See `:help vim.lsp.*` for documentation on any of the below functions
         local bufopts = { noremap=true, silent=true, buffer=bufnr }
 
-        local mappings = {
-            n = {
-                ["gD"] = { vim.lsp.buf.declaration, "   lsp declaration" },
-                ["gd"] = { vim.lsp.buf.definition, "   lsp definition" },
-                ["gi"] = { vim.lsp.buf.implementation, "   lsp implementation" },
-                ["gr"] = { vim.lsp.buf.references, "   lsp references" },
-                ["K"] = { vim.lsp.buf.hover, "   lsp hover" },
-                ["<leader>ls"] = { vim.lsp.buf.signature_help, "   lsp signature_help" },
-                ["<leader>D"] = { vim.lsp.buf.type_definition, "   lsp definition type" },
-                ["<leader>rn"] = { vim.lsp.buf.rename, "   lsp rename" },
-                ["<leader>ca"] = { vim.lsp.buf.code_action, "   lsp code_action" },
-                ["<leader>f"] = { vim.diagnostic.open_float, "   floating diagnostic" },
-                ["[d"] = { vim.diagnostic.goto_prev, "   goto prev" },
-                ["d]"] = { vim.diagnostic.goto_next, "   goto_next" },
-                ["<leader>q"] = { vim.diagnostic.setloclist, "   diagnostic setloclist" },
-                ["<leader>fm"] = { vim.lsp.buf.formatting, "   lsp formatting" },
-                ["<leader>wa"] = { vim.lsp.buf.add_workspace_folder, "   add workspace folder" },
-                ["<leader>wr"] = { vim.lsp.buf.remove_workspace_folder, "   remove workspace folder" },
-                ["<leader>wl"] = {
-                    function()
-                        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-                    end,
-                    "   list workspace folders",
-                },
+        require("which-key").add({
+            { "gD", vim.lsp.buf.declaration, desc = "   lsp declaration" },
+            { "gd", vim.lsp.buf.definition, desc = "   lsp definition" },
+            { "gi", vim.lsp.buf.implementation, desc = "   lsp implementation" },
+            { "gr", vim.lsp.buf.references, desc = "   lsp references" },
+            { "K", vim.lsp.buf.hover, desc = "   lsp hover" },
+            { "<leader>ls", vim.lsp.buf.signature_help, desc = "   lsp signature_help" },
+            { "<leader>D", vim.lsp.buf.type_definition, desc = "   lsp definition type" },
+            { "<leader>rn", vim.lsp.buf.rename, desc = "   lsp rename" },
+            { "<leader>ca", vim.lsp.buf.code_action, desc = "   lsp code_action" },
+            { "<leader>f", vim.diagnostic.open_float, desc = "   floating diagnostic" },
+            { "[d", vim.diagnostic.goto_prev, desc = "   goto prev" },
+            { "d]", vim.diagnostic.goto_next, desc = "   goto_next" },
+            { "<leader>q", vim.diagnostic.setloclist, desc = "   diagnostic setloclist" },
+            { "<leader>fm", vim.lsp.buf.formatting, desc = "   lsp formatting" },
+            { "<leader>wa", vim.lsp.buf.add_workspace_folder, desc = "   add workspace folder" },
+            { "<leader>wr", vim.lsp.buf.remove_workspace_folder, desc = "   remove workspace folder" },
+            { "<leader>wl",
+                function()
+                    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+                end,
+                desc = "   list workspace folders",
             },
-        }
-        require("utils").load_mappings(mappings, bufopts)
+        })
     end
 
     local capabilities
