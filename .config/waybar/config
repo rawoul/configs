@@ -4,10 +4,21 @@
     // "width": 1280, // Waybar width
     // "margin": 10,
     // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad", "mpris"],
+    "modules-left": ["niri/workspaces", "sway/workspaces", "sway/mode", "sway/scratchpad", "niri/window"],
     //"modules-center": ["sway/window"],
-    "modules-right": ["idle_inhibitor", "custom/weather", "pulseaudio", "network", "cpu", "memory", "temperature#cpu", "temperature#gpu", "sway/language", "backlight", "battery", "battery#bat2", "clock", "tray"],
+    "modules-right": ["mpris", "idle_inhibitor", "custom/weather", "wireplumber", "wireplumber#source", "network", "cpu", "memory", "temperature#cpu", "temperature#gpu", "niri/language", "sway/language", "backlight", "battery", "clock", "tray"],
     // Modules configuration
+    "niri/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false,
+        "format": "{index}: {icon}",
+        "format-icons": {
+            "browser": "",
+            "mail": "",
+            "urgent": "",
+            "default": ""
+        }
+    },
     "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": false,
@@ -55,6 +66,9 @@
         },
         "tooltip-format": "MPD (connected)",
         "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "niri/language": {
+        "format": " {short} {variant}",
     },
     "sway/language": {
         "format": " {short} {variant}",
@@ -116,9 +130,6 @@
         // "format-full": "",
         "format-icons": ["", "", "", "", ""]
     },
-    "battery#bat2": {
-        "bat": "BAT2"
-    },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": " {essid} ({signalStrength}%)",
@@ -147,15 +158,31 @@
         },
         "on-click": "pavucontrol"
     },
+    "wireplumber": {
+        "node-type": "Audio/Sink",
+        "format": "{icon} {volume}%",
+        "format-muted": " ",
+        "format-icons": ["", "", ""],
+        "on-click": "pavucontrol",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    },
+    "wireplumber#source": {
+        "node-type": "Audio/Source",
+        "format": " {volume}%",
+        "format-muted": "",
+        "format-icons": ["", "", ""],
+        "on-click": "pavucontrol",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    },
     "mpris": {
         "format": "{player_icon} {dynamic}",
         "format-paused": "{status_icon} {dynamic}",
         "player-icons": {
             "spotify": "",
-            "default": "🎜"
+            "default": ""
         },
         "status-icons": {
-            "paused": "⏸"
+            "paused": ""
         },
     },
     "custom/weather": {

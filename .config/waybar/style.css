@@ -22,6 +22,20 @@ window#waybar.hidden {
     margin: 0 5px;
 }
 
+#mpris {
+    padding: 5px;
+    border: none;
+    border-radius: 0;
+    border-top: 3px solid transparent;
+}
+
+#window {
+    padding: 5px;
+    border: none;
+    border-radius: 0;
+    border-top: 3px solid transparent;
+}
+
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
     margin-left: 0;
@@ -81,6 +95,7 @@ button:hover {
 #memory,
 #network,
 #pulseaudio,
+#wireplumber,
 #idle_inhibitor,
 #backlight,
 #custom-weather,
