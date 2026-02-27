@@ -37,31 +37,31 @@ end
 
 # colors
 if status --is-login
-    set -U fish_color_autosuggestion 2e3440
-    set -U fish_color_cancel -r
-    set -U fish_color_command brcyan
-    set -U fish_color_comment 434c5e
-    set -U fish_color_cwd blue
-    set -U fish_color_cwd_root red
-    set -U fish_color_end brgreen
-    set -U fish_color_error brred
-    set -U fish_color_escape 00a6b2
-    set -U fish_color_history_current --bold
-    set -U fish_color_host brwhite
-    set -U fish_color_match --background=brblue
-    set -U fish_color_normal normal
-    set -U fish_color_operator green
-    set -U fish_color_param brwhite
-    set -U fish_color_quote bryellow
-    set -U fish_color_redirection brmagenta
-    set -U fish_color_search_match --background=203e60
-    set -U fish_color_selection white --bold --background=brblack
-    set -U fish_color_user blue
-    set -U fish_color_valid_path brwhite
-    set -U fish_pager_color_completion normal
-    set -U fish_pager_color_description b3a06d
-    set -U fish_pager_color_prefix --bold
-    set -U fish_pager_color_progress brblack --background=222222
+    set -g fish_color_autosuggestion 2e3440
+    set -g fish_color_cancel -r
+    set -g fish_color_command brcyan
+    set -g fish_color_comment 434c5e
+    set -g fish_color_cwd blue
+    set -g fish_color_cwd_root red
+    set -g fish_color_end brgreen
+    set -g fish_color_error brred
+    set -g fish_color_escape 00a6b2
+    set -g fish_color_history_current --bold
+    set -g fish_color_host brwhite
+    set -g fish_color_match --background=brblue
+    set -g fish_color_normal normal
+    set -g fish_color_operator green
+    set -g fish_color_param brwhite
+    set -g fish_color_quote bryellow
+    set -g fish_color_redirection brmagenta
+    set -g fish_color_search_match --background=203e60
+    set -g fish_color_selection white --bold --background=brblack
+    set -g fish_color_user blue
+    set -g fish_color_valid_path brwhite
+    set -g fish_pager_color_completion normal
+    set -g fish_pager_color_description b3a06d
+    set -g fish_pager_color_prefix --bold
+    set -g fish_pager_color_progress brblack --background=222222
 end
 
 # fzf
