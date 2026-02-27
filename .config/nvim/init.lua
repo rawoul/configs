@@ -95,6 +95,7 @@ local on_attach = function(client, bufnr)
         { "K", vim.lsp.buf.hover, desc = "   lsp hover" },
         { "<leader>ls", vim.lsp.buf.signature_help, desc = "   lsp signature_help" },
         { "<leader>D", vim.lsp.buf.type_definition, desc = "   lsp definition type" },
+        { "<leader>t", vim.lsp.buf.typehierarchy, desc = "   lsp type hierarchy" },
         { "<leader>rn", vim.lsp.buf.rename, desc = "   lsp rename" },
         { "<leader>ca", vim.lsp.buf.code_action, desc = "   lsp code_action" },
         { "<leader>f", vim.diagnostic.open_float, desc = "   floating diagnostic" },
