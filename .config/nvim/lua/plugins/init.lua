@@ -10,19 +10,9 @@ return packer.startup(function()
     -- tree-sitter
     use {
         "nvim-treesitter/nvim-treesitter",
-        run = function()
-            require('nvim-treesitter.install').update({
-                with_sync = true
-            })
-        end,
+        branch = 'main',
         config = function()
-            require("nvim-treesitter.configs").setup {
-                ensure_installed = { "lua", "vim", "c" },
-                auto_install = true,
-                highlight = {
-                    enable = true,
-                },
-            }
+            require("nvim-treesitter").install { "lua", "vim", "c" }
         end
     }
 
