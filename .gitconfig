@@ -8,7 +8,7 @@
 	ui = auto
 	interative = auto
 [core]
-	editor = vim
+	editor = nvim
 	autocrlf = input
 	quotePath = false
 	commitGraph = true
@@ -30,7 +30,7 @@
 	enabled = true
 	autoupdate = true
 [merge]
-	tool = vimdiff
+	tool = nvimdiff
 	conflictstyle = zdiff3
 [rebase]
 	stat = true

@@ -8,7 +8,7 @@ umask 022
 # env
 fish_add_path ~/bin
 set -gx BROWSER firefox
-set -gx EDITOR vim
+set -gx EDITOR nvim
 set -gx LESS "-q -R -S"
 set -gx LESS_TERMCAP_mb \e\[01\;34m
 set -gx LESS_TERMCAP_md \e\[01\;34m
