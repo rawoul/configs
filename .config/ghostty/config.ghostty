@@ -1,0 +1,40 @@
+font-family = "Ioskeley Mono Term"
+font-family = "Symbols Nerd Font Mono"
+# To generally disable most ligatures, use `-calt, -liga, -dlig`.
+font-feature = -calt
+font-size = 9
+alpha-blending = linear-corrected
+adjust-underline-position = 1
+freetype-load-flags = no-hinting,no-force-autohint
+background = #1a1a1a
+foreground = #e5e5e5
+palette = 0=#000000
+palette = 1=#ff6565
+palette = 2=#80e75a
+palette = 3=#ffdd62
+palette = 4=#305a97
+palette = 5=#c570c3
+palette = 6=#729fcf
+palette = 7=#cccccc
+palette = 8=#666666
+palette = 9=#ff7070
+palette = 10=#9eee81
+palette = 11=#ffe790
+palette = 12=#4475b4
+palette = 13=#d796d5
+palette = 14=#89cdf2
+palette = 15=#ffffff
+cursor-style-blink = false
+notify-on-command-finish = unfocused
+notify-on-command-finish-action = bell,no-notify
+scrollback-limit-bytes = 50000000
+scrollback-limit-lines = unlimited
+scrollback-compression = true
+window-width = 82
+window-height = 50
+resize-overlay = never
+#resize-overlay-position = bottom-right
+confirm-close-surface = false
+custom-shader = cursor_tail.glsl
+shell-integration-features = no-cursor,no-sudo,title,no-ssh-env,no-ssh-terminfo,path
+gtk-single-instance=true
